@@ -5,4 +5,4 @@ yarn-error.log
 /public/*
 !index.html
 
-/src/**/*.d.ts
+/src/**/*.css.d.ts
