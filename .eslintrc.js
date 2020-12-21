@@ -10,6 +10,9 @@ module.exports = {
       extends: [
         'plugin:@typescript-eslint/recommended',
         'prettier/@typescript-eslint',
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:import/typescript', // this line does the trick
         'plugin:react/recommended',
       ],
       plugins: ['@typescript-eslint'],
@@ -19,6 +22,7 @@ module.exports = {
         project: './tsconfig.json',
       },
       rules: {
+        'import/order': 'error',
         'no-undef': 'off',
         'react/jsx-uses-react': 'off',
         'react/prop-types': 'off',
