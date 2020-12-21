@@ -12,6 +12,7 @@
     "gen-dts": "tcm src"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.11",
     "@types/react-dom": "^17.0.0",
     "@types/webpack-dev-server": "^3.11.1",
     "css-loader": "^5.0.1",
@@ -25,7 +26,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@types/classnames": "^2.2.11",
     "classnames": "^2.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
