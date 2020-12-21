@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.11",
     "@types/react-dom": "^17.0.0",
+    "@types/react-redux": "^7.1.12",
     "@types/webpack-dev-server": "^3.11.1",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
@@ -38,6 +39,8 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   }
 }
