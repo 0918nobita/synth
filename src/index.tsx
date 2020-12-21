@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
+import Counter from './counter';
 import Keyboard from './keyboard';
 import { initialState, reducer } from './store';
 
@@ -25,18 +25,6 @@ function* rootSaga() {
 }
 
 sagaMiddleware.run(rootSaga);
-
-const Counter: React.VFC = () => {
-  const count = useSelector((state) => state.count);
-
-  const dispatch = useDispatch();
-
-  const handle = useCallback(() => {
-    dispatch({ type: 'countUp' });
-  }, [dispatch]);
-
-  return <button onClick={handle}>{count}</button>;
-};
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = document.getElementById('root')!;
