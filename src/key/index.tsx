@@ -1,5 +1,7 @@
 import styles from './Key.css';
 
-const Key: React.FC = ({ children }) => <div className={styles.key}>{children}</div>;
+const Key: React.FC = ({ children }) => (
+  <div className={styles.key}>{children}</div>
+);
 
 export default Key;

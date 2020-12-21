@@ -18,7 +18,7 @@ const config: webpack.Configuration = {
       {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader?modules'],
-      }
+      },
     ],
   },
   resolve: {

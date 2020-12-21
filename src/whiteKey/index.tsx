@@ -33,10 +33,7 @@ const WhiteKey: React.VFC<Props> = ({ first, freq }) => {
       onMouseDown={stroke}
       onMouseUp={release}
       onMouseLeave={release}
-      className={
-        classNames(
-          styles.whiteKey,
-          { [styles.leftEnd]: !!first })}
+      className={classNames(styles.whiteKey, { [styles.leftEnd]: !!first })}
     />
   );
 };
