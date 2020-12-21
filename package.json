@@ -1,0 +1,33 @@
+{
+  "name": "synth",
+  "version": "0.1.0",
+  "description": "Synthesizer",
+  "repository": "git@github.com:0918nobita/synth.git",
+  "author": "0918nobita <nobita.0918@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "yarn gen-dts && webpack",
+    "dev": "webpack serve",
+    "gen-dts": "tcm src"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^17.0.0",
+    "@types/webpack-dev-server": "^3.11.1",
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.12",
+    "ts-node": "^9.1.1",
+    "typed-css-modules": "^0.6.4",
+    "typescript": "^4.1.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@types/classnames": "^2.2.11",
+    "classnames": "^2.2.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

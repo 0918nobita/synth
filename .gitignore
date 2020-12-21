@@ -1,0 +1,7 @@
+.vscode
+node_modules
+
+/public/*
+!index.html
+
+/src/**/*.d.ts
