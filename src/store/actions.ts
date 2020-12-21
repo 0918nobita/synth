@@ -1,5 +1,9 @@
-export type Actions = CountUpAction;
+export type Actions = CountUpAction | CountUpAsyncAction;
 
 interface CountUpAction {
   type: 'countUp';
+}
+
+interface CountUpAsyncAction {
+  type: 'countUpAsync';
 }

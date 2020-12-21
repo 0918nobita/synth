@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import Counter from './counter';
 import Keyboard from './keyboard';
+import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
 const composeEnhancers =
@@ -18,11 +19,6 @@ const store = createStore(
   initialState,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
-
-// eslint-disable-next-line require-yield
-function* rootSaga() {
-  console.log('Hello, redux-saga!');
-}
 
 sagaMiddleware.run(rootSaga);
 

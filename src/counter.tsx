@@ -6,11 +6,20 @@ const Counter: React.VFC = () => {
 
   const dispatch = useDispatch();
 
-  const handle = useCallback(() => {
+  const countUp = useCallback(() => {
     dispatch({ type: 'countUp' });
   }, [dispatch]);
 
-  return <button onClick={handle}>{count}</button>;
+  const countUpAsync = useCallback(() => {
+    dispatch({ type: 'countUpAsync' });
+  }, [dispatch]);
+
+  return (
+    <>
+      <button onClick={countUp}>{count}</button>
+      <button onClick={countUpAsync}>Count Up in 1sec</button>
+    </>
+  );
 };
 
 export default Counter;
