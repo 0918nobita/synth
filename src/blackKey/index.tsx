@@ -7,7 +7,7 @@ interface Props {
   freq: number;
 }
 
-const BlackKey: React.FC<Props> = ({ freq }) => {
+const BlackKey: React.VFC<Props> = ({ freq }) => {
   const ctx = webAudioContext;
 
   const [osc, setOsc] = useState<OscillatorNode | null>(null);
