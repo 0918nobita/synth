@@ -69,6 +69,6 @@
     // "emitDecoratorMetadata": true,          /* デコレーター用の型メタデータを発行するための実験的なサポートを有効にします。 */
   },
   "include": [
-    "src"
+    "src", "webpack.config.ts"
   ]
 }
