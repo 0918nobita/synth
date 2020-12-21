@@ -1,8 +1,8 @@
 import 'react-redux';
 import { Dispatch, Store } from 'redux';
 
-import { Actions } from './actions';
-import { State } from './state';
+import { Actions } from './store/actions';
+import { State } from './store/state';
 
 declare module 'react-redux' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

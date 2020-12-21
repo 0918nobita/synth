@@ -4,8 +4,7 @@ import { createStore } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import Keyboard from './keyboard';
-import { reducer } from './reducer';
-import { initialState } from './state';
+import { initialState, reducer } from './store';
 
 const store = createStore(
   reducer,
