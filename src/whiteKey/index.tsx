@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import webAudioContext from '../webAudioContext';
 
@@ -13,20 +13,26 @@ interface Props {
 const WhiteKey: React.VFC<Props> = ({ first, freq }) => {
   const ctx = webAudioContext;
 
-  const handler = useCallback(() => {
-    const osc = ctx.createOscillator();
-    osc.frequency.value = freq;
-    osc.connect(ctx.destination);
-    osc.start();
+  const [osc, setOsc] = useState<OscillatorNode | null>(null);
 
-    setTimeout(() => {
-      osc.stop();
-    }, 1000);
-  }, []);
+  const stroke = useCallback(() => {
+    const newOsc = ctx.createOscillator();
+    newOsc.frequency.value = freq;
+    newOsc.connect(ctx.destination);
+    newOsc.start();
+    setOsc(newOsc);
+  }, [osc]);
+
+  const release = useCallback(() => {
+    if (osc === null) return;
+    osc.stop();
+  }, [osc]);
 
   return (
     <button
-      onClick={handler}
+      onMouseDown={stroke}
+      onMouseUp={release}
+      onMouseLeave={release}
       className={
         classNames(
           styles.whiteKey,
