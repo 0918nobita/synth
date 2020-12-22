@@ -7,7 +7,7 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 
-import { Actions } from './store';
+import { Actions, ActionTypes } from './store';
 
 type RootSaga = Generator<
   AllEffect<Generator<WatchAsyncActionEffect, void, unknown>>,
@@ -33,5 +33,5 @@ export function* countUpAsync(): CountUpAsync {
 type WatchAsyncActionEffect = ForkEffect<never>;
 type WatchAsyncAction = Generator<WatchAsyncActionEffect, void, unknown>;
 export function* watchAsyncAction(): WatchAsyncAction {
-  yield takeEvery('countUpAsync', countUpAsync);
+  yield takeEvery<ActionTypes>('countUpAsync', countUpAsync);
 }
