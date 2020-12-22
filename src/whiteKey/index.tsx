@@ -1,32 +1,25 @@
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
-
-import webAudioContext from '../webAudioContext';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 import styles from './WhiteKey.css';
 
 interface Props {
+  id: number;
   first?: boolean;
   freq: number;
 }
 
-const WhiteKey: React.VFC<Props> = ({ first, freq }) => {
-  const ctx = webAudioContext;
-
-  const [osc, setOsc] = useState<OscillatorNode | null>(null);
+const WhiteKey: React.VFC<Props> = ({ id, first, freq }) => {
+  const dispatch = useDispatch();
 
   const stroke = useCallback(() => {
-    const newOsc = ctx.createOscillator();
-    newOsc.frequency.value = freq;
-    newOsc.connect(ctx.destination);
-    newOsc.start();
-    setOsc(newOsc);
-  }, [osc]);
+    dispatch({ type: 'stroke', payload: { id, freq } });
+  }, [dispatch]);
 
   const release = useCallback(() => {
-    if (osc === null) return;
-    osc.stop();
-  }, [osc]);
+    dispatch({ type: 'release', payload: { id } });
+  }, [dispatch]);
 
   return (
     <button

@@ -17,7 +17,7 @@ const Counter: React.VFC = () => {
   return (
     <>
       <button onClick={countUp}>{count}</button>
-      <button onClick={countUpAsync}>Count Up in 1sec</button>
+      <button onClick={countUpAsync}>Count up in 1sec</button>
     </>
   );
 };

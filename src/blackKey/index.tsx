@@ -1,29 +1,23 @@
-import { useCallback, useState } from 'react';
-import webAudioContext from '../webAudioContext';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 import styles from './BlackKey.css';
 
 interface Props {
+  id: number;
   freq: number;
 }
 
-const BlackKey: React.VFC<Props> = ({ freq }) => {
-  const ctx = webAudioContext;
-
-  const [osc, setOsc] = useState<OscillatorNode | null>(null);
+const BlackKey: React.VFC<Props> = ({ id, freq }) => {
+  const dispatch = useDispatch();
 
   const stroke = useCallback(() => {
-    const newOsc = ctx.createOscillator();
-    newOsc.frequency.value = freq;
-    newOsc.connect(ctx.destination);
-    newOsc.start();
-    setOsc(newOsc);
-  }, [osc]);
+    dispatch({ type: 'stroke', payload: { id, freq } });
+  }, [dispatch]);
 
   const release = useCallback(() => {
-    if (!osc) return;
-    osc.stop();
-  }, [osc]);
+    dispatch({ type: 'release', payload: { id } });
+  }, [dispatch]);
 
   return (
     <button
