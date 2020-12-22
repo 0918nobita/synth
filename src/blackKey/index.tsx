@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { release, stroke } from '../store';
+
 import styles from './BlackKey.css';
 
 interface Props {
@@ -13,21 +15,21 @@ const BlackKey: React.VFC<Props> = ({ id, freq }) => {
 
   const [stroked, setStroked] = useState(false);
 
-  const stroke = useCallback(() => {
-    if (!stroked) dispatch({ type: 'stroke', payload: { id, freq } });
+  const strokeHandler = useCallback(() => {
+    if (!stroked) dispatch(stroke({ id, freq }));
     setStroked(true);
   }, [dispatch, stroked]);
 
-  const release = useCallback(() => {
-    if (stroked) dispatch({ type: 'release', payload: { id } });
+  const releaseHandler = useCallback(() => {
+    if (stroked) dispatch(release({ id }));
     setStroked(false);
   }, [dispatch, stroked]);
 
   return (
     <button
-      onMouseDown={stroke}
-      onMouseUp={release}
-      onMouseLeave={release}
+      onMouseDown={strokeHandler}
+      onMouseUp={releaseHandler}
+      onMouseLeave={releaseHandler}
       className={styles.blackKey}
     />
   );

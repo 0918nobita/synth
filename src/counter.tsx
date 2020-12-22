@@ -1,23 +1,25 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { countUp, countUpAsync } from './store';
+
 const Counter: React.VFC = () => {
   const count = useSelector((state) => state.count);
 
   const dispatch = useDispatch();
 
-  const countUp = useCallback(() => {
-    dispatch({ type: 'countUp' });
+  const countUpHandler = useCallback(() => {
+    dispatch(countUp());
   }, [dispatch]);
 
-  const countUpAsync = useCallback(() => {
-    dispatch({ type: 'countUpAsync' });
+  const countUpAsyncHandler = useCallback(() => {
+    dispatch(countUpAsync());
   }, [dispatch]);
 
   return (
     <>
-      <button onClick={countUp}>{count}</button>
-      <button onClick={countUpAsync}>Count up in 1sec</button>
+      <button onClick={countUpHandler}>{count}</button>
+      <button onClick={countUpAsyncHandler}>Count up in 1sec</button>
     </>
   );
 };
