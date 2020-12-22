@@ -1,41 +1,37 @@
 import {
   AllEffect,
-  CallEffect,
   ForkEffect,
-  PutEffect,
   all,
   delay,
   put,
   takeEvery,
 } from 'redux-saga/effects';
+
 import { Actions } from './store';
 
-export function* rootSaga(): Generator<
-  AllEffect<Generator<ForkEffect<never>, void, unknown>>,
+type RootSaga = Generator<
+  AllEffect<Generator<WatchAsyncActionEffect, void, unknown>>,
   void,
   unknown
-> {
+>;
+export function* rootSaga(): RootSaga {
   yield all([helloSaga(), watchAsyncAction()]);
 }
 
+type HelloSaga = Generator<never, void, unknown>;
 // eslint-disable-next-line require-yield
-export function* helloSaga(): Generator<never, void, unknown> {
+export function* helloSaga(): HelloSaga {
   console.log('Hello, redux-saga!');
 }
 
-export function* countUpAsync(): Generator<
-  CallEffect<true> | PutEffect<Actions>,
-  void,
-  unknown
-> {
+type CountUpAsync = Generator<unknown, void, unknown>;
+export function* countUpAsync(): CountUpAsync {
   yield delay(1000);
-  yield put({ type: 'countUp' });
+  yield put<Actions>({ type: 'countUp' });
 }
 
-export function* watchAsyncAction(): Generator<
-  ForkEffect<never>,
-  void,
-  unknown
-> {
+type WatchAsyncActionEffect = ForkEffect<never>;
+type WatchAsyncAction = Generator<WatchAsyncActionEffect, void, unknown>;
+export function* watchAsyncAction(): WatchAsyncAction {
   yield takeEvery('countUpAsync', countUpAsync);
 }
