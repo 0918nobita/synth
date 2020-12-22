@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import styles from './BlackKey.css';
@@ -11,13 +11,17 @@ interface Props {
 const BlackKey: React.VFC<Props> = ({ id, freq }) => {
   const dispatch = useDispatch();
 
+  const [stroked, setStroked] = useState(false);
+
   const stroke = useCallback(() => {
-    dispatch({ type: 'stroke', payload: { id, freq } });
-  }, [dispatch]);
+    if (!stroked) dispatch({ type: 'stroke', payload: { id, freq } });
+    setStroked(true);
+  }, [dispatch, stroked]);
 
   const release = useCallback(() => {
-    dispatch({ type: 'release', payload: { id } });
-  }, [dispatch]);
+    if (stroked) dispatch({ type: 'release', payload: { id } });
+    setStroked(false);
+  }, [dispatch, stroked]);
 
   return (
     <button
