@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
+import Analyzer from './analyzer';
 import Counter from './counter';
 import Keyboard from './keyboard';
 import { rootSaga } from './sagas';
@@ -26,6 +27,7 @@ sagaMiddleware.run(rootSaga);
 const root = document.getElementById('root')!;
 ReactDOM.render(
   <Provider store={store}>
+    <Analyzer />
     <Counter />
     <Keyboard />
   </Provider>,
