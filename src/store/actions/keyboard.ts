@@ -1,4 +1,21 @@
-export type KeyboardActions = StrokeAction | ReleaseAction;
+export type KeyboardActions =
+  | UpdateWaveformAction
+  | StrokeAction
+  | ReleaseAction;
+
+export interface UpdateWaveformAction {
+  type: 'updateWaveform';
+  payload: {
+    waveform: 'sine' | 'square' | 'sawtooth' | 'triangle';
+  };
+}
+
+export const updateWaveform = ({
+  waveform,
+}: UpdateWaveformAction['payload']): UpdateWaveformAction => ({
+  type: 'updateWaveform',
+  payload: { waveform },
+});
 
 export interface StrokeAction {
   type: 'stroke';
@@ -8,8 +25,10 @@ export interface StrokeAction {
   };
 }
 
-type StrokeActionCreator = (_: { id: number; freq: number }) => StrokeAction;
-export const stroke: StrokeActionCreator = ({ id, freq }) => ({
+export const stroke = ({
+  id,
+  freq,
+}: StrokeAction['payload']): StrokeAction => ({
   type: 'stroke',
   payload: { id, freq },
 });
@@ -21,8 +40,7 @@ export interface ReleaseAction {
   };
 }
 
-type ReleaseActionCreator = (_: { id: number }) => ReleaseAction;
-export const release: ReleaseActionCreator = ({ id }) => ({
+export const release = ({ id }: ReleaseAction['payload']): ReleaseAction => ({
   type: 'release',
   payload: { id },
 });
