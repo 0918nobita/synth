@@ -3,14 +3,17 @@ import { useDispatch } from 'react-redux';
 
 import { Knob } from './knob';
 
-export const GainKnob: React.VFC = () => {
+export const UnisonKnob: React.VFC = () => {
   const dispatch = useDispatch();
 
-  const [knobValue, setKnobValue] = useState(100);
+  const [knobValue, setKnobValue] = useState(12.5);
 
   const setKnobValueAndDispatch = useCallback(
     (val) => {
-      dispatch({ type: 'updateGain', payload: { rate: val / 100 } });
+      dispatch({
+        type: 'updateUnison',
+        payload: { count: Math.floor((val / 100) * 8) },
+      });
       setKnobValue(val);
     },
     [dispatch]
@@ -19,7 +22,9 @@ export const GainKnob: React.VFC = () => {
   return (
     <>
       <Knob knobValue={knobValue} setKnobValue={setKnobValueAndDispatch} />
-      <div style={{ userSelect: 'none' }}>gain: {knobValue / 100}</div>
+      <div style={{ userSelect: 'none' }}>
+        unison: {Math.floor((knobValue / 100) * 8)}
+      </div>
     </>
   );
 };

@@ -1,5 +1,6 @@
 export type KeyboardActions =
   | UpdateGainAction
+  | UpdateUnisonAction
   | UpdateWaveformAction
   | StrokeAction
   | ReleaseAction;
@@ -8,6 +9,13 @@ export interface UpdateGainAction {
   type: 'updateGain';
   payload: {
     rate: number;
+  };
+}
+
+export interface UpdateUnisonAction {
+  type: 'updateUnison';
+  payload: {
+    count: number;
   };
 }
 

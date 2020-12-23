@@ -10,7 +10,7 @@ import {
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-type Oscillators = Map<number, OscillatorNode>;
+type Oscillators = Map<number, OscillatorNode[]>;
 
 export function* keyboard() {
   const ctx = new AudioContext();
@@ -39,41 +39,49 @@ function* gain(gainNode: GainNode) {
   }
 }
 
-function* stroke(ctx: AudioContext, gainNode: GainNode, oscs: Oscillators) {
+function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
   while (true) {
     const {
       payload: { id, freq },
     } = (yield take('stroke')) as StrokeAction;
 
-    const { waveform, analyzer } = (yield select()) as State;
+    const { waveform, analyzer, unison } = (yield select()) as State;
 
-    const osc = ctx.createOscillator();
-    osc.frequency.value = freq;
-    osc.type = waveform;
+    const oscs: OscillatorNode[] = [];
+    const median = Math.floor(unison / 2);
+    const detune = 20;
 
-    if (analyzer !== null) osc.connect(analyzer);
-    osc.connect(gainNode);
+    for (let i = 0; i < unison; i++) {
+      const osc = ctx.createOscillator();
+      osc.frequency.value = freq + (i - median) * detune;
+      osc.type = waveform;
+      if (analyzer !== null) osc.connect(analyzer);
+      osc.connect(gainNode);
+      oscs.push(osc);
+    }
 
-    oscs.set(id, osc);
+    oscMap.set(id, oscs);
 
-    osc.start();
+    for (const osc of oscs) osc.start();
   }
 }
 
-function* release(gainNode: GainNode, oscs: Oscillators) {
+function* release(gainNode: GainNode, oscMap: Oscillators) {
   while (true) {
     const {
       payload: { id },
     } = (yield take('release')) as ReleaseAction;
 
-    const osc = oscs.get(id);
-    if (osc !== undefined) {
-      osc.stop();
+    const oscs = oscMap.get(id);
+    if (oscs !== undefined) {
+      for (const osc of oscs) {
+        osc.stop();
 
-      const { analyzer } = (yield select()) as State;
-      if (analyzer != null) osc.disconnect(analyzer);
+        const { analyzer } = (yield select()) as State;
+        if (analyzer != null) osc.disconnect(analyzer);
 
-      osc.disconnect(gainNode);
+        osc.disconnect(gainNode);
+      }
     }
   }
 }

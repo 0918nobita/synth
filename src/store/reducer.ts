@@ -12,6 +12,8 @@ export const reducer: Reducer<State, Actions> = (
       return { ...state, analyzer: action.payload.analyzerNode };
     case 'updateGain':
       return { ...state, gain: action.payload.rate };
+    case 'updateUnison':
+      return { ...state, unison: action.payload.count };
     case 'updateWaveform':
       return { ...state, waveform: action.payload.waveform };
     default:

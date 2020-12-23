@@ -3,7 +3,13 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import { Analyzer, Keyboard, GainKnob, WaveformSelectbox } from './components';
+import {
+  Analyzer,
+  Keyboard,
+  GainKnob,
+  UnisonKnob,
+  WaveformSelectbox,
+} from './components';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
@@ -26,6 +32,7 @@ const root = document.getElementById('root')!;
 ReactDOM.render(
   <Provider store={store}>
     <GainKnob />
+    <UnisonKnob />
     <Analyzer />
     <WaveformSelectbox />
     <Keyboard />
