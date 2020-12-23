@@ -1,6 +1,6 @@
 import { delay, put, takeEvery } from 'redux-saga/effects';
 
-import { ActionTypes, CountUpAction } from '../store';
+import { ActionTypes, countUp } from '../store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -10,5 +10,5 @@ export function* counter() {
 
 function* countUpAsync() {
   yield delay(1000);
-  yield put<CountUpAction>({ type: 'countUp' });
+  yield put(countUp());
 }
