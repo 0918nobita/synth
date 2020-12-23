@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const Analyzer: React.VFC = () => {
+export const Analyzer: React.VFC = () => {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -15,5 +15,3 @@ const Analyzer: React.VFC = () => {
 
   return <canvas ref={ref} width={300} height={200} />;
 };
-
-export default Analyzer;

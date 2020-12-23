@@ -1,10 +1,10 @@
-import Key from '../key';
-import WhiteKey from '../whiteKey';
-import BlackKey from '../blackKey';
+import { Key } from '../key';
+import { WhiteKey } from '../whiteKey';
+import { BlackKey } from '../blackKey';
 
 import styles from './Keyboard.css';
 
-const Keyboard: React.VFC = () => (
+export const Keyboard: React.VFC = () => (
   <div className={styles.keyboard}>
     <Key>
       <WhiteKey id={0} first freq={261.626} />
@@ -34,5 +34,3 @@ const Keyboard: React.VFC = () => (
     </Key>
   </div>
 );
-
-export default Keyboard;

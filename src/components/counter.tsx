@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { countUp, countUpAsync } from './store';
+import { countUp, countUpAsync } from '../store';
 
-const Counter: React.VFC = () => {
+export const Counter: React.VFC = () => {
   const count = useSelector((state) => state.count);
 
   const dispatch = useDispatch();
@@ -23,5 +23,3 @@ const Counter: React.VFC = () => {
     </>
   );
 };
-
-export default Counter;

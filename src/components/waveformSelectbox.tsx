@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateWaveform } from './store';
+import { updateWaveform } from '../store';
 
-const WaveformSelectbox: React.VFC = () => {
+export const WaveformSelectbox: React.VFC = () => {
   const waveforms = ['sine', 'square', 'sawtooth', 'triangle'];
 
   const dispatch = useDispatch();
@@ -34,5 +34,3 @@ const WaveformSelectbox: React.VFC = () => {
     </select>
   );
 };
-
-export default WaveformSelectbox;
