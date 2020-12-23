@@ -12,7 +12,7 @@ export const DetuneKnob: React.VFC = () => {
     (val) => {
       dispatch({
         type: 'updateDetune',
-        payload: { interval: val },
+        payload: { interval: Math.floor(val * 100) },
       });
       setKnobValue(val);
     },
@@ -22,7 +22,9 @@ export const DetuneKnob: React.VFC = () => {
   return (
     <>
       <Knob knobValue={knobValue} setKnobValue={setKnobValueAndDispatch} />
-      <div style={{ userSelect: 'none' }}>detune: {knobValue}</div>
+      <div style={{ userSelect: 'none' }}>
+        detune: {Math.floor(knobValue * 100)}
+      </div>
     </>
   );
 };

@@ -21,8 +21,8 @@ export const Knob: React.VFC<Props> = ({ knobValue, setKnobValue }: Props) => {
 
       const mouseMoveHandler = (e: MouseEvent) => {
         const yDiff = yCoord - e.screenY;
-        const draft = Math.floor(knobValue + yDiff);
-        const val = draft < 0 ? 0 : draft > 100 ? 100 : draft;
+        const draft = knobValue + yDiff / 100;
+        const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
         setKnobValue(val);
       };
 
@@ -44,7 +44,7 @@ export const Knob: React.VFC<Props> = ({ knobValue, setKnobValue }: Props) => {
       onMouseDown={mouseDownHandler}
       className={styles.knob}
       style={{
-        transform: `rotate(${(knobValue / 100) * 280 - 140}deg)`,
+        transform: `rotate(${knobValue * 280 - 140}deg)`,
       }}
     >
       <div className={styles.knobCenter} />
