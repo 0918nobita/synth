@@ -10,6 +10,8 @@ export const reducer: Reducer<State, Actions> = (
   switch (action.type) {
     case 'countUp':
       return { ...state, count: state.count + 1 };
+    case 'getAnalyzerNode':
+      return { ...state, analyzer: action.payload.analyzerNode };
     case 'updateWaveform':
       return { ...state, waveform: action.payload.waveform };
     default:

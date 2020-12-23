@@ -1,6 +1,6 @@
-import { all, select, take } from 'redux-saga/effects';
+import { all, put, select, take } from 'redux-saga/effects';
 
-import { State, StrokeAction, ReleaseAction } from '../store';
+import { State, StrokeAction, ReleaseAction, getAnalyzerNode } from '../store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -8,7 +8,10 @@ type Oscillators = Map<number, OscillatorNode>;
 
 export function* keyboard() {
   const ctx = new AudioContext();
-  const oscillators: Oscillators = new Map<number, OscillatorNode>();
+
+  yield put(getAnalyzerNode({ analyzerNode: ctx.createAnalyser() }));
+
+  const oscillators: Oscillators = new Map();
   yield all([stroke(ctx, oscillators), release(oscillators)]);
 }
 
@@ -18,9 +21,12 @@ function* stroke(ctx: AudioContext, oscs: Oscillators) {
       payload: { id, freq },
     } = (yield take('stroke')) as StrokeAction;
 
+    const { waveform, analyzer } = (yield select()) as State;
+
     const osc = ctx.createOscillator();
     osc.frequency.value = freq;
-    osc.type = ((yield select()) as State).waveform;
+    osc.type = waveform;
+    if (analyzer !== null) osc.connect(analyzer);
     osc.connect(ctx.destination);
     oscs.set(id, osc);
     osc.start();
