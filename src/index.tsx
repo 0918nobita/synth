@@ -8,6 +8,7 @@ import Counter from './counter';
 import Keyboard from './keyboard';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
+import WaveformSelectbox from './waveformSelectbox';
 
 const composeEnhancers =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,6 +30,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Analyzer />
     <Counter />
+    <WaveformSelectbox />
     <Keyboard />
   </Provider>,
   root
