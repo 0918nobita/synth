@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import { Analyzer, Counter, Keyboard, WaveformSelectbox } from './components';
+import { Analyzer, Keyboard, WaveformSelectbox } from './components';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
@@ -26,7 +26,6 @@ const root = document.getElementById('root')!;
 ReactDOM.render(
   <Provider store={store}>
     <Analyzer />
-    <Counter />
     <WaveformSelectbox />
     <Keyboard />
   </Provider>,
