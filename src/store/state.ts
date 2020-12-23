@@ -3,6 +3,7 @@ export interface State {
   analyzer: AnalyserNode | null;
   gain: number;
   unison: number;
+  detune: number;
 }
 
 export const initialState: State = {
@@ -10,4 +11,5 @@ export const initialState: State = {
   analyzer: null,
   gain: 1,
   unison: 1,
+  detune: 0,
 };

@@ -1,4 +1,5 @@
 export * from './analyzer';
+export * from './detuneKnob';
 export * from './gainKnob';
 export * from './keyboard';
 export * from './unisonKnob';

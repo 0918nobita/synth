@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import {
   Analyzer,
+  DetuneKnob,
   Keyboard,
   GainKnob,
   UnisonKnob,
@@ -33,6 +34,7 @@ ReactDOM.render(
   <Provider store={store}>
     <GainKnob />
     <UnisonKnob />
+    <DetuneKnob />
     <Analyzer />
     <WaveformSelectbox />
     <Keyboard />

@@ -15,12 +15,13 @@ type Oscillators = Map<number, OscillatorNode[]>;
 export function* keyboard() {
   const ctx = new AudioContext();
 
-  yield put(getAnalyzerNode({ analyzerNode: ctx.createAnalyser() }));
+  const analyzerNode = ctx.createAnalyser();
+  yield put(getAnalyzerNode({ analyzerNode }));
 
   const oscillators: Oscillators = new Map();
 
   const gainNode = ctx.createGain();
-  gainNode.connect(ctx.destination);
+  gainNode.connect(analyzerNode).connect(ctx.destination);
 
   yield all([
     gain(gainNode),
@@ -45,17 +46,15 @@ function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
       payload: { id, freq },
     } = (yield take('stroke')) as StrokeAction;
 
-    const { waveform, analyzer, unison } = (yield select()) as State;
+    const { waveform, unison, detune } = (yield select()) as State;
 
     const oscs: OscillatorNode[] = [];
     const median = Math.floor(unison / 2);
-    const detune = 20;
 
     for (let i = 0; i < unison; i++) {
       const osc = ctx.createOscillator();
       osc.frequency.value = freq + (i - median) * detune;
       osc.type = waveform;
-      if (analyzer !== null) osc.connect(analyzer);
       osc.connect(gainNode);
       oscs.push(osc);
     }
@@ -76,10 +75,6 @@ function* release(gainNode: GainNode, oscMap: Oscillators) {
     if (oscs !== undefined) {
       for (const osc of oscs) {
         osc.stop();
-
-        const { analyzer } = (yield select()) as State;
-        if (analyzer != null) osc.disconnect(analyzer);
-
         osc.disconnect(gainNode);
       }
     }

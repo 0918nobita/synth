@@ -1,6 +1,7 @@
 export type KeyboardActions =
   | UpdateGainAction
   | UpdateUnisonAction
+  | UpdateDetuneAction
   | UpdateWaveformAction
   | StrokeAction
   | ReleaseAction;
@@ -16,6 +17,13 @@ export interface UpdateUnisonAction {
   type: 'updateUnison';
   payload: {
     count: number;
+  };
+}
+
+export interface UpdateDetuneAction {
+  type: 'updateDetune';
+  payload: {
+    interval: number;
   };
 }
 
