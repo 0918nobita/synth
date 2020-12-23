@@ -1,7 +1,15 @@
 export type KeyboardActions =
+  | UpdateGainAction
   | UpdateWaveformAction
   | StrokeAction
   | ReleaseAction;
+
+export interface UpdateGainAction {
+  type: 'updateGain';
+  payload: {
+    rate: number;
+  };
+}
 
 export interface UpdateWaveformAction {
   type: 'updateWaveform';
