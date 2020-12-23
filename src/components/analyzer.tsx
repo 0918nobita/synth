@@ -27,8 +27,8 @@ export const Analyzer: React.VFC = () => {
       for (let i = 0; i < bufferLength; i++) {
         const x = 300 * (i / bufferLength);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const v = dataArray[i]! / 255.0;
-        const y = (1 - v) * 200;
+        const normalizedAmp = dataArray[i]! / 255.0;
+        const y = (1 - normalizedAmp) * 200;
         if (i === 0) {
           ctx.moveTo(x, y);
         } else {
