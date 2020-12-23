@@ -1,6 +1,6 @@
-import { all, take } from 'redux-saga/effects';
+import { all, select, take } from 'redux-saga/effects';
 
-import { StrokeAction, ReleaseAction } from '../store';
+import { State, StrokeAction, ReleaseAction } from '../store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -20,6 +20,7 @@ function* stroke(ctx: AudioContext, oscs: Oscillators) {
 
     const osc = ctx.createOscillator();
     osc.frequency.value = freq;
+    osc.type = ((yield select()) as State).waveform;
     osc.connect(ctx.destination);
     oscs.set(id, osc);
     osc.start();
