@@ -1,21 +1,17 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Waveform, waveforms } from '../domains/waveform';
 import { updateWaveform } from '../store';
 
 export const WaveformSelectbox: React.VFC = () => {
-  const waveforms = ['sine', 'square', 'sawtooth', 'triangle'];
-
   const dispatch = useDispatch();
 
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       dispatch(
         updateWaveform({
-          waveform: e.target.value as
-            | 'sine'
-            | 'square'
-            | 'sawtooth'
-            | 'triangle',
+          waveform: e.target.value as Waveform,
         })
       );
     },
