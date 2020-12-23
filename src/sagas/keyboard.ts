@@ -12,7 +12,7 @@ export function* keyboard() {
   yield put(getAnalyzerNode({ analyzerNode: ctx.createAnalyser() }));
 
   const oscillators: Oscillators = new Map();
-  yield all([stroke(ctx, oscillators), release(oscillators)]);
+  yield all([stroke(ctx, oscillators), release(ctx, oscillators)]);
 }
 
 function* stroke(ctx: AudioContext, oscs: Oscillators) {
@@ -26,20 +26,30 @@ function* stroke(ctx: AudioContext, oscs: Oscillators) {
     const osc = ctx.createOscillator();
     osc.frequency.value = freq;
     osc.type = waveform;
+
     if (analyzer !== null) osc.connect(analyzer);
     osc.connect(ctx.destination);
+
     oscs.set(id, osc);
+
     osc.start();
   }
 }
 
-function* release(oscs: Oscillators) {
+function* release(ctx: AudioContext, oscs: Oscillators) {
   while (true) {
     const {
       payload: { id },
     } = (yield take('release')) as ReleaseAction;
 
     const osc = oscs.get(id);
-    if (osc !== undefined) osc.stop();
+    if (osc !== undefined) {
+      osc.stop();
+
+      const { analyzer } = (yield select()) as State;
+      if (analyzer != null) osc.disconnect(analyzer);
+
+      osc.disconnect(ctx.destination);
+    }
   }
 }
