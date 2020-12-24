@@ -22,7 +22,11 @@ export const UnisonKnob: React.VFC = () => {
 
   return (
     <>
-      <Knob initialKnobValue={0.125} nextKnobValue={setKnobValueAndDispatch} />
+      <Knob
+        initialKnobValue={0.125}
+        nextKnobValue={setKnobValueAndDispatch}
+        step={0.125}
+      />
       <div style={{ userSelect: 'none' }}>unison: {knobValue}</div>
     </>
   );

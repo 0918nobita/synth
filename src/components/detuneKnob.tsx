@@ -22,7 +22,7 @@ export const DetuneKnob: React.VFC = () => {
 
   return (
     <>
-      <Knob initialKnobValue={0} nextKnobValue={nextKnobValue} />
+      <Knob initialKnobValue={0} nextKnobValue={nextKnobValue} step={0.01} />
       <div style={{ userSelect: 'none' }}>detune: {knobValue}</div>
     </>
   );

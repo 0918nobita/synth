@@ -1,17 +1,19 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 interface Props {
   initialKnobValue: number;
   nextKnobValue: (val: number) => void;
+  step: number;
 }
 
 export const Knob: React.VFC<Props> = ({
   initialKnobValue,
   nextKnobValue,
+  step,
 }: Props) => {
-  const ref = useRef<SVGSVGElement>(null);
-
   const [dragging, setDragging] = useState(false);
+
+  const [focused, setFocused] = useState(false);
 
   const [knobValue, setKnobValue] = useState(initialKnobValue);
 
@@ -42,13 +44,51 @@ export const Knob: React.VFC<Props> = ({
     [dragging]
   );
 
+  const focusHandler = useCallback(() => {
+    setFocused(true);
+  }, [setFocused]);
+
+  const blurHandler = useCallback(() => {
+    setFocused(false);
+  }, [setFocused]);
+
+  const keydownHandler = useCallback(
+    (e: React.KeyboardEvent<SVGSVGElement>) => {
+      if (!focused) return;
+
+      if (e.key === 'Up' || e.key === 'ArrowUp') {
+        const draft = knobValue + step;
+        const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
+        setKnobValue(val);
+        nextKnobValue(val);
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      if (e.key === 'Down' || e.key === 'ArrowDown') {
+        const draft = knobValue - step;
+        const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
+        setKnobValue(val);
+        nextKnobValue(val);
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+    },
+    [focused, knobValue]
+  );
+
   return (
     <svg
       width={45}
       height={45}
       viewBox={[-100, -100, 200, 200].join(', ')}
-      ref={ref}
+      tabIndex={0}
       onMouseDown={mouseDownHandler}
+      onFocus={focusHandler}
+      onBlur={blurHandler}
+      onKeyDown={keydownHandler}
     >
       <g style={{ transform: `rotate(${knobValue * 280 - 140}deg)` }}>
         <circle

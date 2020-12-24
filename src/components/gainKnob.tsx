@@ -18,7 +18,7 @@ export const GainKnob: React.VFC = () => {
 
   return (
     <>
-      <Knob initialKnobValue={1} nextKnobValue={nextKnobValue} />
+      <Knob initialKnobValue={1} nextKnobValue={nextKnobValue} step={0.01} />
       <div style={{ userSelect: 'none' }}>gain: {knobValue.toFixed(2)}</div>
     </>
   );
