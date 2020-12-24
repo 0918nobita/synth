@@ -47,6 +47,7 @@ export const Knob: React.VFC<Props> = ({
       width={45}
       height={45}
       viewBox={[-100, -100, 200, 200].join(', ')}
+      tabIndex={0}
       ref={ref}
       onMouseDown={mouseDownHandler}
     >
