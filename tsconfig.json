@@ -21,7 +21,7 @@
     // "removeComments": true,                 /* コメントを出力しないでください。 */
     // "noEmit": true,                         /* 出力しないでください。 */
     // "importHelpers": true,                  /* 生成ヘルパーを 'tslib' からインポートします。 */
-    // "downlevelIteration": true,             /* 'for-of' の iterable、spread、'ES5' や 'ES3' をターゲットとする場合は destructuring に対してフル サポートを提供します。 */
+    "downlevelIteration": true,             /* 'for-of' の iterable、spread、'ES5' や 'ES3' をターゲットとする場合は destructuring に対してフル サポートを提供します。 */
     // "isolatedModules": true,                /* 個々のモジュールとして各ファイルをトランスパイルします ('ts.transpileModule' に類似)。 */
 
     /* 詳細オプション */
