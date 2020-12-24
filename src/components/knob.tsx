@@ -1,7 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import styles from './Knob.css';
-
 interface Props {
   initialKnobValue: number;
   nextKnobValue: (val: number) => void;
@@ -11,14 +9,14 @@ export const Knob: React.VFC<Props> = ({
   initialKnobValue,
   nextKnobValue,
 }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<SVGSVGElement>(null);
 
   const [dragging, setDragging] = useState(false);
 
   const [knobValue, setKnobValue] = useState(initialKnobValue);
 
   const mouseDownHandler = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       if (dragging) return;
 
       const yCoord = e.screenY;
@@ -45,16 +43,24 @@ export const Knob: React.VFC<Props> = ({
   );
 
   return (
-    <div
+    <svg
+      width={45}
+      height={45}
+      viewBox={[-100, -100, 200, 200].join(', ')}
       ref={ref}
       onMouseDown={mouseDownHandler}
-      className={styles.knob}
-      style={{
-        transform: `rotate(${knobValue * 280 - 140}deg)`,
-      }}
     >
-      <div className={styles.knobCenter} />
-      <div className={styles.knobMark} />
-    </div>
+      <g style={{ transform: `rotate(${knobValue * 280 - 140}deg)` }}>
+        <circle
+          cx={0}
+          cy={0}
+          r={90}
+          strokeWidth={12}
+          stroke="rgb(122, 122, 122)"
+          fill="rgb(43, 43, 43)"
+        />
+        <line x1={0} y1={-90} x2={0} y2={-35} stroke="white" strokeWidth={10} />
+      </g>
+    </svg>
   );
 };
