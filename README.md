@@ -27,3 +27,15 @@ $ yarn gen-dts
 ```
 $ yarn dev
 ```
+
+## Lint
+
+```
+$ yarn lint
+```
+
+## Format
+
+```
+$ yarn format
+```
