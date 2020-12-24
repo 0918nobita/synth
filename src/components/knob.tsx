@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-interface Props {
+export interface Props {
   initialKnobValue: number;
   nextKnobValue: (val: number) => void;
   step: number;
