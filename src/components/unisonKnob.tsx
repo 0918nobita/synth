@@ -6,25 +6,24 @@ import { Knob } from './knob';
 export const UnisonKnob: React.VFC = () => {
   const dispatch = useDispatch();
 
-  const [knobValue, setKnobValue] = useState(0.125);
+  const [knobValue, setKnobValue] = useState(1);
 
   const setKnobValueAndDispatch = useCallback(
     (val) => {
+      const count = Math.floor(val * 8);
       dispatch({
         type: 'updateUnison',
-        payload: { count: Math.floor(val * 8) },
+        payload: { count },
       });
-      setKnobValue(val);
+      setKnobValue(count);
     },
     [dispatch]
   );
 
   return (
     <>
-      <Knob knobValue={knobValue} setKnobValue={setKnobValueAndDispatch} />
-      <div style={{ userSelect: 'none' }}>
-        unison: {Math.floor(knobValue * 8)}
-      </div>
+      <Knob initialKnobValue={0.125} nextKnobValue={setKnobValueAndDispatch} />
+      <div style={{ userSelect: 'none' }}>unison: {knobValue}</div>
     </>
   );
 };

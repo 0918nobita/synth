@@ -3,14 +3,19 @@ import React, { useCallback, useRef, useState } from 'react';
 import styles from './Knob.css';
 
 interface Props {
-  knobValue: number;
-  setKnobValue: (val: number) => void;
+  initialKnobValue: number;
+  nextKnobValue: (val: number) => void;
 }
 
-export const Knob: React.VFC<Props> = ({ knobValue, setKnobValue }: Props) => {
+export const Knob: React.VFC<Props> = ({
+  initialKnobValue,
+  nextKnobValue,
+}: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [dragging, setDragging] = useState(false);
+
+  const [knobValue, setKnobValue] = useState(initialKnobValue);
 
   const mouseDownHandler = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -24,6 +29,7 @@ export const Knob: React.VFC<Props> = ({ knobValue, setKnobValue }: Props) => {
         const draft = knobValue + yDiff / 100;
         const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
         setKnobValue(val);
+        nextKnobValue(val);
       };
 
       const mouseUpHandler = () => {

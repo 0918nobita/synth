@@ -8,23 +8,22 @@ export const DetuneKnob: React.VFC = () => {
 
   const [knobValue, setKnobValue] = useState(0);
 
-  const setKnobValueAndDispatch = useCallback(
+  const nextKnobValue = useCallback(
     (val) => {
+      const interval = Math.floor(val * 100);
       dispatch({
         type: 'updateDetune',
-        payload: { interval: Math.floor(val * 100) },
+        payload: { interval },
       });
-      setKnobValue(val);
+      setKnobValue(interval);
     },
     [dispatch]
   );
 
   return (
     <>
-      <Knob knobValue={knobValue} setKnobValue={setKnobValueAndDispatch} />
-      <div style={{ userSelect: 'none' }}>
-        detune: {Math.floor(knobValue * 100)}
-      </div>
+      <Knob initialKnobValue={0} nextKnobValue={nextKnobValue} />
+      <div style={{ userSelect: 'none' }}>detune: {knobValue}</div>
     </>
   );
 };

@@ -8,7 +8,7 @@ export const GainKnob: React.VFC = () => {
 
   const [knobValue, setKnobValue] = useState(1);
 
-  const setKnobValueAndDispatch = useCallback(
+  const nextKnobValue = useCallback(
     (val) => {
       dispatch({ type: 'updateGain', payload: { rate: val } });
       setKnobValue(val);
@@ -18,7 +18,7 @@ export const GainKnob: React.VFC = () => {
 
   return (
     <>
-      <Knob knobValue={knobValue} setKnobValue={setKnobValueAndDispatch} />
+      <Knob initialKnobValue={1} nextKnobValue={nextKnobValue} />
       <div style={{ userSelect: 'none' }}>gain: {knobValue.toFixed(2)}</div>
     </>
   );
