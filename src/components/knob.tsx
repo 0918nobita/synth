@@ -6,6 +6,16 @@ interface Props {
   step: number;
 }
 
+const limitToWithinRange = ({
+  val,
+  min,
+  max,
+}: {
+  val: number;
+  min: number;
+  max: number;
+}) => (val < min ? min : val > max ? max : val);
+
 export const Knob: React.VFC<Props> = ({
   initialKnobValue,
   nextKnobValue,
@@ -27,7 +37,7 @@ export const Knob: React.VFC<Props> = ({
       const mouseMoveHandler = (e: MouseEvent) => {
         const yDiff = yCoord - e.screenY;
         const draft = knobValue + yDiff / 100;
-        const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
+        const val = limitToWithinRange({ val: draft, min: 0, max: 1 });
         setKnobValue(val);
         nextKnobValue(val);
       };
@@ -58,7 +68,7 @@ export const Knob: React.VFC<Props> = ({
 
       if (e.key === 'Up' || e.key === 'ArrowUp') {
         const draft = knobValue + step;
-        const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
+        const val = limitToWithinRange({ val: draft, min: 0, max: 1 });
         setKnobValue(val);
         nextKnobValue(val);
         e.preventDefault();
@@ -68,7 +78,7 @@ export const Knob: React.VFC<Props> = ({
 
       if (e.key === 'Down' || e.key === 'ArrowDown') {
         const draft = knobValue - step;
-        const val = draft < 0 ? 0 : draft > 1 ? 1 : draft;
+        const val = limitToWithinRange({ val: draft, min: 0, max: 1 });
         setKnobValue(val);
         nextKnobValue(val);
         e.preventDefault();
