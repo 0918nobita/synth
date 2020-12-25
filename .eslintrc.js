@@ -3,7 +3,7 @@ module.exports = {
   env: { browser: true, es6: true, node: true },
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   plugins: ['import'],
-  ignorePatterns: ['node_modules', 'public'],
+  ignorePatterns: ['node_modules', 'public', '**/*.css.d.ts'],
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
