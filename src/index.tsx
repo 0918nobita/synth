@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import {
   Analyzer,
+  AttackKnob,
   DetuneKnob,
   Keyboard,
   GainKnob,
@@ -38,6 +39,7 @@ ReactDOM.render(
       <GainKnob />
       <UnisonKnob />
       <DetuneKnob />
+      <AttackKnob />
     </div>
     <div className={styles.analyzerAndKeyboard}>
       <div className={styles.selectbox}>
