@@ -11,7 +11,7 @@ body {
 .knobs {
   display: flex;
   justify-content: space-between;
-  width: 270px;
+  width: 400px;
   margin: 10px;
 }
 
