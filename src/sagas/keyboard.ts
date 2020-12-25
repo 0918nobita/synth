@@ -4,7 +4,7 @@ import { ReleaseAction, State, StrokeAction, getAnalyzerNode } from '../store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-type Oscillators = Map<number, OscillatorNode[]>;
+type Oscillators = Map<number, { oscNodes: OscillatorNode[]; amp: GainNode }>;
 
 export function* keyboard() {
   const ctx = new AudioContext();
@@ -17,10 +17,7 @@ export function* keyboard() {
   const gainNode = ctx.createGain();
   gainNode.connect(analyzerNode).connect(ctx.destination);
 
-  yield all([
-    stroke(ctx, gainNode, oscillators),
-    release(gainNode, oscillators),
-  ]);
+  yield all([stroke(ctx, gainNode, oscillators), release(ctx, oscillators)]);
 }
 
 function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
@@ -35,39 +32,57 @@ function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
       unison,
       detune,
       attack,
+      decay,
+      sustain,
     } = (yield select()) as State;
 
     const oscs: OscillatorNode[] = [];
     const median = Math.floor(unison / 2);
 
+    const amp = ctx.createGain();
+
     for (let i = 0; i < unison; i++) {
-      const osc = ctx.createOscillator();
-      osc.frequency.value = freq + (i - median) * detune;
-      osc.type = waveform;
-      osc.connect(gainNode);
-      oscs.push(osc);
+      const oscNode = ctx.createOscillator();
+      oscNode.frequency.value = freq + (i - median) * detune;
+      oscNode.type = waveform;
+      amp.gain.setValueAtTime(0, ctx.currentTime);
+      amp.gain.linearRampToValueAtTime(gain, ctx.currentTime + attack);
+      amp.gain.linearRampToValueAtTime(
+        sustain * gain,
+        ctx.currentTime + attack + decay
+      );
+      oscNode.connect(amp).connect(gainNode);
+      oscs.push(oscNode);
     }
 
-    oscMap.set(id, oscs);
+    oscMap.set(id, { oscNodes: oscs, amp });
 
     gainNode.gain.setValueAtTime(0, ctx.currentTime);
     gainNode.gain.linearRampToValueAtTime(gain, ctx.currentTime + attack);
+    gainNode.gain.linearRampToValueAtTime(
+      sustain * gain,
+      ctx.currentTime + attack + decay
+    );
 
     for (const osc of oscs) osc.start();
   }
 }
 
-function* release(gainNode: GainNode, oscMap: Oscillators) {
+function* release(ctx: AudioContext, oscMap: Oscillators) {
   while (true) {
     const {
       payload: { id },
     } = (yield take('release')) as ReleaseAction;
 
+    const { release } = (yield select()) as State;
+
     const oscs = oscMap.get(id);
     if (oscs !== undefined) {
-      for (const osc of oscs) {
-        osc.stop();
-        osc.disconnect(gainNode);
+      const endTime = ctx.currentTime + release;
+      oscs.amp.gain.linearRampToValueAtTime(0, endTime);
+
+      for (const oscNode of oscs.oscNodes) {
+        oscNode.stop(endTime);
       }
     }
   }

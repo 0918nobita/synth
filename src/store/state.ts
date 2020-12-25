@@ -5,6 +5,9 @@ export interface State {
   unison: number;
   detune: number;
   attack: number;
+  decay: number;
+  sustain: number;
+  release: number;
 }
 
 export const initialState: State = {
@@ -14,4 +17,7 @@ export const initialState: State = {
   unison: 1,
   detune: 0,
   attack: 0,
+  decay: 0,
+  sustain: 1,
+  release: 0,
 };
