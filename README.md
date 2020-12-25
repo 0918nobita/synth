@@ -1,5 +1,7 @@
 # Synthesizer
 
+![Lint Code Base](https://github.com/0918nobita/synth/workflows/Lint%20Code%20Base/badge.svg)
+
 WIP
 
 ![screenshot](./assets/screenshot.png)
