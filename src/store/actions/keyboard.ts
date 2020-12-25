@@ -3,7 +3,7 @@ export type KeyboardActions =
   | UpdateUnisonAction
   | UpdateDetuneAction
   | UpdateWaveformAction
-  | updateAttackAction
+  | UpdateAttackAction
   | StrokeAction
   | ReleaseAction;
 
@@ -42,7 +42,7 @@ export const updateWaveform = ({
   payload: { waveform },
 });
 
-export interface updateAttackAction {
+export interface UpdateAttackAction {
   type: 'updateAttack';
   payload: {
     period: number;
