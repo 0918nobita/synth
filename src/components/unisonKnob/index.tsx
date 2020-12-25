@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Knob } from './knob';
+import { Knob } from '../knob';
+
+import styles from './UnisonKnob.css';
 
 export const UnisonKnob: React.VFC = () => {
   const dispatch = useDispatch();
@@ -21,13 +23,13 @@ export const UnisonKnob: React.VFC = () => {
   );
 
   return (
-    <>
+    <div>
       <Knob
         initialKnobValue={0.125}
         nextKnobValue={setKnobValueAndDispatch}
         step={0.125}
       />
-      <div style={{ userSelect: 'none' }}>unison: {knobValue}</div>
-    </>
+      <div className={styles.text}>UNISON: {knobValue}</div>
+    </div>
   );
 };

@@ -14,6 +14,8 @@ import {
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
+import styles from './global.css';
+
 const composeEnhancers =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any)?.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -32,12 +34,20 @@ sagaMiddleware.run(rootSaga);
 const root = document.getElementById('root')!;
 ReactDOM.render(
   <Provider store={store}>
-    <GainKnob />
-    <UnisonKnob />
-    <DetuneKnob />
-    <Analyzer />
-    <WaveformSelectbox />
-    <Keyboard />
+    <div className={styles.knobs}>
+      <GainKnob />
+      <UnisonKnob />
+      <DetuneKnob />
+    </div>
+    <div className={styles.analyzerAndKeyboard}>
+      <div className={styles.selectbox}>
+        <WaveformSelectbox />
+      </div>
+      <div className={styles.analyzer}>
+        <Analyzer />
+      </div>
+      <Keyboard />
+    </div>
   </Provider>,
   root
 );

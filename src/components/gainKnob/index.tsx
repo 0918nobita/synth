@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Knob } from './knob';
+import { Knob } from '../knob';
+
+import styles from './GainKnob.css';
 
 export const GainKnob: React.VFC = () => {
   const dispatch = useDispatch();
@@ -17,9 +19,9 @@ export const GainKnob: React.VFC = () => {
   );
 
   return (
-    <>
+    <div>
       <Knob initialKnobValue={1} nextKnobValue={nextKnobValue} step={0.01} />
-      <div style={{ userSelect: 'none' }}>gain: {knobValue.toFixed(2)}</div>
-    </>
+      <div className={styles.text}>GAIN: {knobValue.toFixed(2)}</div>
+    </div>
   );
 };

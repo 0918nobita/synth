@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Knob } from './knob';
+import { Knob } from '../knob';
+
+import styles from './DetuneKnob.css';
 
 export const DetuneKnob: React.VFC = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,9 @@ export const DetuneKnob: React.VFC = () => {
   );
 
   return (
-    <>
+    <div>
       <Knob initialKnobValue={0} nextKnobValue={nextKnobValue} step={0.01} />
-      <div style={{ userSelect: 'none' }}>detune: {knobValue}</div>
-    </>
+      <div className={styles.text}>DETUNE: {knobValue}</div>
+    </div>
   );
 };

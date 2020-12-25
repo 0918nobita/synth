@@ -1,0 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(84, 91, 97);
+}
+
+.knobs {
+  display: flex;
+  justify-content: space-between;
+  width: 270px;
+  margin: 10px;
+}
+
+.analyzerAndKeyboard {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.selectbox {
+  margin-bottom: 10px;
+}
+
+.analyzer {
+  margin-bottom: 10px;
+}

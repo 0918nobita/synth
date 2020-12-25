@@ -12,7 +12,7 @@ const meta: Meta = {
   title: 'Keyboard',
   decorators: [
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    (story): JSX.Element => <Provider store={store}>{story()}</Provider>,
+    (story) => <Provider store={store}>{story()}</Provider>,
   ],
 };
 

@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
+import styles from './Analyzer.css';
+
 export const Analyzer: React.VFC = () => {
   const ref = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>();
@@ -17,11 +19,11 @@ export const Analyzer: React.VFC = () => {
     const animate = () => {
       analyzer.getByteTimeDomainData(dataArray);
 
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = 'rgb(38, 42, 46)';
       ctx.fillRect(0, 0, 300, 200);
 
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = 'rgb(125, 225, 30)';
       ctx.beginPath();
 
       for (let i = 0; i < bufferLength; i++) {
@@ -50,5 +52,7 @@ export const Analyzer: React.VFC = () => {
     };
   }, []);
 
-  return <canvas ref={ref} width={300} height={200} />;
+  return (
+    <canvas ref={ref} className={styles.analyzer} width={200} height={200} />
+  );
 };
