@@ -3,6 +3,7 @@ export type KeyboardActions =
   | UpdateUnisonAction
   | UpdateDetuneAction
   | UpdateWaveformAction
+  | updateAttackAction
   | StrokeAction
   | ReleaseAction;
 
@@ -40,6 +41,13 @@ export const updateWaveform = ({
   type: 'updateWaveform',
   payload: { waveform },
 });
+
+export interface updateAttackAction {
+  type: 'updateAttack';
+  payload: {
+    period: number;
+  };
+}
 
 export interface StrokeAction {
   type: 'stroke';
