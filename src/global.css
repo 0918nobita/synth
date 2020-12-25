@@ -9,9 +9,8 @@ body {
 }
 
 .knobs {
-  display: flex;
-  justify-content: space-between;
-  width: 400px;
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px;
   margin: 10px;
 }
 
