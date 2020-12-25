@@ -29,7 +29,13 @@ function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
       payload: { id, freq },
     } = (yield take('stroke')) as StrokeAction;
 
-    const { waveform, gain, unison, detune } = (yield select()) as State;
+    const {
+      waveform,
+      gain,
+      unison,
+      detune,
+      attack,
+    } = (yield select()) as State;
 
     const oscs: OscillatorNode[] = [];
     const median = Math.floor(unison / 2);
@@ -44,7 +50,8 @@ function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
 
     oscMap.set(id, oscs);
 
-    gainNode.gain.setValueAtTime(gain, 0);
+    gainNode.gain.setValueAtTime(0, ctx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(gain, ctx.currentTime + attack);
 
     for (const osc of oscs) osc.start();
   }
