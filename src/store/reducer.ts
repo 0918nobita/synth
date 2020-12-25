@@ -18,6 +18,8 @@ export const reducer: Reducer<State, Actions> = (
       return { ...state, detune: action.payload.interval };
     case 'updateWaveform':
       return { ...state, waveform: action.payload.waveform };
+    case 'updateAttack':
+      return { ...state, attack: action.payload.period };
     default:
       return state;
   }
