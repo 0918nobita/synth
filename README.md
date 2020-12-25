@@ -4,6 +4,13 @@
 
 WIP
 
+- Single oscillator (`sine`, `square`, `sawtooth`, `triangle`)
+- Gain control (`0x`-`1.00x`)
+- Unison control (`0`-`8`)
+- Detune control (`0hz`-`100hz`)
+- Virtual keyboard (`C3`-`B3`)
+- Controllable via MIDI keyboard
+
 ![screenshot](./assets/screenshot.png)
 
 ## Install dependencies
@@ -40,4 +47,10 @@ $ yarn lint
 
 ```
 $ yarn format
+```
+
+## Launch Storybook
+
+```
+$ yarn storybook
 ```
