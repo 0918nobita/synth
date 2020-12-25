@@ -1,10 +1,9 @@
 import { channel } from 'redux-saga';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { noteNumToFreq } from '../domains/keyboard';
 
-const noteNumToFreq = (noteNum: number) =>
-  440 * Math.pow(2, (noteNum - 69) / 12);
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 interface MIDIMsg {
   kind: 'noteOn' | 'noteOff';

@@ -10,7 +10,6 @@ import {
   GainKnob,
   UnisonKnob,
   WaveformSelectbox,
-  SVGKeyboard,
 } from './components';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
@@ -39,7 +38,6 @@ ReactDOM.render(
     <Analyzer />
     <WaveformSelectbox />
     <Keyboard />
-    <SVGKeyboard />
   </Provider>,
   root
 );
