@@ -1,0 +1,15 @@
+.whiteKey {
+  fill: white;
+}
+
+.whiteKey:hover {
+  fill: rgb(224, 224, 224);
+}
+
+.blackKey {
+  fill: rgb(58, 58, 58);
+}
+
+.blackKey:hover {
+  fill: black;
+}

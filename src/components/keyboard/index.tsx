@@ -1,36 +1,69 @@
-import { Key } from '../key';
-import { WhiteKey } from '../whiteKey';
-import { BlackKey } from '../blackKey';
+import { Key, Props as PropsForKey } from './key';
 
-import styles from './Keyboard.css';
+export const Keyboard: React.VFC = () => {
+  const keys: PropsForKey[] = ([
+    {
+      kind: 'white',
+      x: 0,
+    },
+    {
+      kind: 'black',
+      x: 20,
+    },
+    {
+      kind: 'white',
+      x: 30,
+    },
+    {
+      kind: 'black',
+      x: 52,
+    },
+    {
+      kind: 'white',
+      x: 60,
+    },
+    {
+      kind: 'white',
+      x: 90,
+    },
+    {
+      kind: 'black',
+      x: 108,
+    },
+    {
+      kind: 'white',
+      x: 120,
+    },
+    {
+      kind: 'black',
+      x: 142,
+    },
+    {
+      kind: 'white',
+      x: 150,
+    },
+    {
+      kind: 'black',
+      x: 174,
+    },
+    {
+      kind: 'white',
+      x: 180,
+    },
+  ] as const).map((e, i) => ({ ...e, noteNum: i + 60 }));
 
-export const Keyboard: React.VFC = () => (
-  <div className={styles.keyboard}>
-    <Key>
-      <WhiteKey id={0} first freq={261.626} />
-      <BlackKey id={1} freq={277.183} />
-    </Key>
-    <Key>
-      <WhiteKey id={2} freq={293.665} />
-      <BlackKey id={3} freq={311.127} />
-    </Key>
-    <Key>
-      <WhiteKey id={4} freq={329.628} />
-    </Key>
-    <Key>
-      <WhiteKey id={5} freq={349.228} />
-      <BlackKey id={6} freq={369.994} />
-    </Key>
-    <Key>
-      <WhiteKey id={7} freq={391.995} />
-      <BlackKey id={8} freq={415.305} />
-    </Key>
-    <Key>
-      <WhiteKey id={9} freq={440} />
-      <BlackKey id={10} freq={466.164} />
-    </Key>
-    <Key>
-      <WhiteKey id={11} freq={493.883} />
-    </Key>
-  </div>
-);
+  return (
+    <svg width={210} height={110} viewBox={[0, 0, 210, 110].join(', ')}>
+      {keys
+        .filter((keyProps) => keyProps.kind === 'white')
+        .map((keyProps) => (
+          <Key key={keyProps.noteNum} {...keyProps} />
+        ))}
+      {keys
+        .filter((keyProps) => keyProps.kind === 'black')
+        .map((keyProps) => (
+          <Key key={keyProps.noteNum} {...keyProps} />
+        ))}
+    </svg>
+  );
+};
