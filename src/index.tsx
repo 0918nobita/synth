@@ -9,12 +9,11 @@ import {
   DetuneKnob,
   Keyboard,
   GainKnob,
-  UnisonKnob,
-  WaveformSelectbox,
   DecayKnob,
   SustainKnob,
   ReleaseKnob,
 } from './components';
+import { UnisonInputContainer, WaveformSelectboxContainer } from './containers';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
@@ -40,7 +39,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div className={styles.knobs}>
       <GainKnob />
-      <UnisonKnob />
+      <UnisonInputContainer />
       <DetuneKnob />
     </div>
     <div className={styles.knobs}>
@@ -51,7 +50,7 @@ ReactDOM.render(
     </div>
     <div className={styles.analyzerAndKeyboard}>
       <div className={styles.selectbox}>
-        <WaveformSelectbox />
+        <WaveformSelectboxContainer />
       </div>
       <div className={styles.analyzer}>
         <Analyzer />
