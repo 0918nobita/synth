@@ -19,42 +19,42 @@ WIP
 
 ## Install dependencies
 
-```
-$ yarn
+```bash
+yarn
 ```
 
 ## Build
 
-```
-$ yarn build
+```bash
+yarn build
 ```
 
 ## Generate `.d.ts` files
 
-```
-$ yarn gen-dts
+```bash
+yarn gen-dts
 ```
 
 ## Launch devServer
 
-```
-$ yarn dev
+```bash
+yarn dev
 ```
 
 ## Lint
 
-```
-$ yarn lint
+```bash
+yarn lint
 ```
 
 ## Format
 
-```
-$ yarn format
+```bash
+yarn format
 ```
 
 ## Launch Storybook
 
-```
-$ yarn storybook
+```bash
+yarn storybook
 ```

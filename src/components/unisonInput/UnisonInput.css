@@ -2,3 +2,7 @@
   color: rgb(239, 240, 241);
   user-select: none;
 }
+
+.numberInput {
+  width: 3em;
+}
