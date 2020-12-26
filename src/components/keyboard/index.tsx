@@ -1,6 +1,19 @@
+import { useDispatch } from 'react-redux';
+
+import { stroke, release } from '../../store';
 import { Key, Props as PropsForKey } from './key';
 
 export const Keyboard: React.VFC = () => {
+  const dispatch = useDispatch();
+
+  const strokeHandler: PropsForKey['strokeHandler'] = ({ id, freq }) => {
+    dispatch(stroke({ id, freq }));
+  };
+
+  const releaseHandler: PropsForKey['releaseHandler'] = (id) => {
+    dispatch(release({ id }));
+  };
+
   const keys: PropsForKey[] = ([
     {
       kind: 'white',
@@ -50,7 +63,12 @@ export const Keyboard: React.VFC = () => {
       kind: 'white',
       x: 180,
     },
-  ] as const).map((e, i) => ({ ...e, noteNum: i + 60 }));
+  ] as const).map((e, i) => ({
+    ...e,
+    noteNum: i + 60,
+    strokeHandler,
+    releaseHandler,
+  }));
 
   return (
     <svg width={210} height={110} viewBox={[0, 0, 210, 110].join(', ')}>
