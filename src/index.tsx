@@ -8,12 +8,12 @@ import {
   DecayKnob,
   DetuneKnob,
   GainKnob,
-  Oscilloscope,
   ReleaseKnob,
   SustainKnob,
 } from './components';
 import {
   KeyboardContainer,
+  OscilloscopeContainer,
   UnisonInputContainer,
   WaveformSelectboxContainer,
 } from './containers';
@@ -56,7 +56,7 @@ ReactDOM.render(
         <WaveformSelectboxContainer />
       </div>
       <div className={styles.analyzer}>
-        <Oscilloscope />
+        <OscilloscopeContainer />
       </div>
       <KeyboardContainer />
     </div>
