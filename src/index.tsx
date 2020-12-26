@@ -7,13 +7,16 @@ import {
   Analyzer,
   AttackKnob,
   DetuneKnob,
-  Keyboard,
   GainKnob,
   DecayKnob,
   SustainKnob,
   ReleaseKnob,
 } from './components';
-import { UnisonInputContainer, WaveformSelectboxContainer } from './containers';
+import {
+  KeyboardContainer,
+  UnisonInputContainer,
+  WaveformSelectboxContainer,
+} from './containers';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
@@ -55,7 +58,7 @@ ReactDOM.render(
       <div className={styles.analyzer}>
         <Analyzer />
       </div>
-      <Keyboard />
+      <KeyboardContainer />
     </div>
   </Provider>,
   root

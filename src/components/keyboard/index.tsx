@@ -1,19 +1,14 @@
-import { useDispatch } from 'react-redux';
-
-import { stroke, release } from '../../store';
 import { Key, Props as PropsForKey } from './key';
 
-export const Keyboard: React.VFC = () => {
-  const dispatch = useDispatch();
+export interface Props {
+  strokeHandler: PropsForKey['strokeHandler'];
+  releaseHandler: PropsForKey['releaseHandler'];
+}
 
-  const strokeHandler: PropsForKey['strokeHandler'] = ({ id, freq }) => {
-    dispatch(stroke({ id, freq }));
-  };
-
-  const releaseHandler: PropsForKey['releaseHandler'] = (id) => {
-    dispatch(release({ id }));
-  };
-
+export const Keyboard: React.VFC<Props> = ({
+  strokeHandler,
+  releaseHandler,
+}) => {
   const keys: PropsForKey[] = ([
     {
       kind: 'white',
