@@ -4,17 +4,19 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import {
-  Analyzer,
   AttackKnob,
-  DetuneKnob,
-  Keyboard,
-  GainKnob,
-  UnisonKnob,
-  WaveformSelectbox,
   DecayKnob,
-  SustainKnob,
+  DetuneKnob,
+  GainKnob,
   ReleaseKnob,
+  SustainKnob,
 } from './components';
+import {
+  KeyboardContainer,
+  OscilloscopeContainer,
+  UnisonInputContainer,
+  WaveformSelectboxContainer,
+} from './containers';
 import { rootSaga } from './sagas';
 import { initialState, reducer } from './store';
 
@@ -40,7 +42,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div className={styles.knobs}>
       <GainKnob />
-      <UnisonKnob />
+      <UnisonInputContainer />
       <DetuneKnob />
     </div>
     <div className={styles.knobs}>
@@ -51,12 +53,12 @@ ReactDOM.render(
     </div>
     <div className={styles.analyzerAndKeyboard}>
       <div className={styles.selectbox}>
-        <WaveformSelectbox />
+        <WaveformSelectboxContainer />
       </div>
       <div className={styles.analyzer}>
-        <Analyzer />
+        <OscilloscopeContainer />
       </div>
-      <Keyboard />
+      <KeyboardContainer />
     </div>
   </Provider>,
   root

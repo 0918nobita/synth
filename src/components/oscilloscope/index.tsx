@@ -1,23 +1,24 @@
 import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
 
-import styles from './Analyzer.css';
+import styles from './Oscilloscope.css';
 
-export const Analyzer: React.VFC = () => {
+interface Props {
+  analyserNode: AnalyserNode;
+}
+
+export const Oscilloscope: React.VFC<Props> = ({ analyserNode }) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const analyzer = useSelector((state) => state.analyzer)!;
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const ctx = ref.current!.getContext('2d')!;
 
-    const bufferLength = analyzer.frequencyBinCount;
+    const bufferLength = analyserNode.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
     const animate = () => {
-      analyzer.getByteTimeDomainData(dataArray);
+      analyserNode.getByteTimeDomainData(dataArray);
 
       ctx.fillStyle = 'rgb(38, 42, 46)';
       ctx.fillRect(0, 0, 300, 200);

@@ -1,6 +1,14 @@
 import { Key, Props as PropsForKey } from './key';
 
-export const Keyboard: React.VFC = () => {
+export interface Props {
+  strokeHandler: PropsForKey['strokeHandler'];
+  releaseHandler: PropsForKey['releaseHandler'];
+}
+
+export const Keyboard: React.VFC<Props> = ({
+  strokeHandler,
+  releaseHandler,
+}) => {
   const keys: PropsForKey[] = ([
     {
       kind: 'white',
@@ -50,7 +58,12 @@ export const Keyboard: React.VFC = () => {
       kind: 'white',
       x: 180,
     },
-  ] as const).map((e, i) => ({ ...e, noteNum: i + 60 }));
+  ] as const).map((e, i) => ({
+    ...e,
+    noteNum: i + 60,
+    strokeHandler,
+    releaseHandler,
+  }));
 
   return (
     <svg width={210} height={110} viewBox={[0, 0, 210, 110].join(', ')}>

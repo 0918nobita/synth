@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { noteNumToFreq } from '../../domains/keyboard';
-import { stroke, release } from '../../store';
 
 import styles from './Key.css';
 
@@ -10,23 +8,28 @@ export interface Props {
   kind: 'white' | 'black';
   x: number;
   noteNum: number;
+  strokeHandler: (_: { id: number; freq: number }) => void;
+  releaseHandler: (id: number) => void;
 }
 
-export const Key: React.VFC<Props> = ({ kind, x, noteNum }) => {
-  const dispatch = useDispatch();
-
+export const Key: React.VFC<Props> = ({
+  kind,
+  x,
+  noteNum,
+  strokeHandler,
+  releaseHandler,
+}) => {
   const [stroked, setStroked] = useState(false);
 
-  const strokeHandler = useCallback(() => {
-    if (!stroked)
-      dispatch(stroke({ id: noteNum, freq: noteNumToFreq(noteNum) }));
+  const onStroke = useCallback(() => {
+    if (!stroked) strokeHandler({ id: noteNum, freq: noteNumToFreq(noteNum) });
     setStroked(true);
-  }, [dispatch, stroked]);
+  }, [stroked]);
 
-  const releaseHandler = useCallback(() => {
-    if (stroked) dispatch(release({ id: noteNum }));
+  const onRelease = useCallback(() => {
+    if (stroked) releaseHandler(noteNum);
     setStroked(false);
-  }, [dispatch, stroked]);
+  }, [stroked]);
 
   switch (kind) {
     case 'white':
@@ -39,9 +42,9 @@ export const Key: React.VFC<Props> = ({ kind, x, noteNum }) => {
           height={110}
           stroke="black"
           strokeWidth={1}
-          onMouseDown={strokeHandler}
-          onMouseUp={releaseHandler}
-          onMouseLeave={releaseHandler}
+          onMouseDown={onStroke}
+          onMouseUp={onRelease}
+          onMouseLeave={onRelease}
         />
       );
     case 'black':
@@ -52,9 +55,9 @@ export const Key: React.VFC<Props> = ({ kind, x, noteNum }) => {
           y={0}
           width={18}
           height={67}
-          onMouseDown={strokeHandler}
-          onMouseUp={releaseHandler}
-          onMouseLeave={releaseHandler}
+          onMouseDown={onStroke}
+          onMouseUp={onRelease}
+          onMouseLeave={onRelease}
         />
       );
   }
