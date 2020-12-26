@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build": "yarn gen-dts && webpack",
-    "dev": "webpack serve",
+    "dev": "yarn gen-dts && webpack serve",
     "gen-dts": "tcm src",
     "lint": "eslint . --ext '.js,.ts,.tsx'",
     "format": "eslint . --fix --ext '.js,.ts,.tsx'",
