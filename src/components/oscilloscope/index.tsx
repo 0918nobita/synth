@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import styles from './Analyzer.css';
+import styles from './Oscilloscope.css';
 
-export const Analyzer: React.VFC = () => {
+export const Oscilloscope: React.VFC = () => {
   const ref = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

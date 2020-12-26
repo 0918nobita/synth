@@ -4,13 +4,13 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import {
-  Analyzer,
   AttackKnob,
+  DecayKnob,
   DetuneKnob,
   GainKnob,
-  DecayKnob,
-  SustainKnob,
+  Oscilloscope,
   ReleaseKnob,
+  SustainKnob,
 } from './components';
 import {
   KeyboardContainer,
@@ -56,7 +56,7 @@ ReactDOM.render(
         <WaveformSelectboxContainer />
       </div>
       <div className={styles.analyzer}>
-        <Analyzer />
+        <Oscilloscope />
       </div>
       <KeyboardContainer />
     </div>
