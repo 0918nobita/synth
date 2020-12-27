@@ -1,49 +1,10 @@
 export type KeyboardActions =
-  | UpdateGainAction
-  | UpdateUnisonAction
-  | UpdateDetuneAction
-  | UpdateWaveformAction
   | UpdateAttackAction
   | UpdateDecayAction
   | UpdateSustainAction
   | UpdateReleaseAction
   | StrokeAction
   | ReleaseAction;
-
-export interface UpdateGainAction {
-  type: 'updateGain';
-  payload: {
-    rate: number;
-  };
-}
-
-export interface UpdateUnisonAction {
-  type: 'updateUnison';
-  payload: {
-    count: number;
-  };
-}
-
-export interface UpdateDetuneAction {
-  type: 'updateDetune';
-  payload: {
-    interval: number;
-  };
-}
-
-export interface UpdateWaveformAction {
-  type: 'updateWaveform';
-  payload: {
-    waveform: 'sine' | 'square' | 'sawtooth' | 'triangle';
-  };
-}
-
-export const updateWaveform = ({
-  waveform,
-}: UpdateWaveformAction['payload']): UpdateWaveformAction => ({
-  type: 'updateWaveform',
-  payload: { waveform },
-});
 
 export interface UpdateAttackAction {
   type: 'updateAttack';

@@ -4,7 +4,15 @@ import { ReleaseAction, State, StrokeAction, getAnalyzerNode } from '../store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-type Oscillators = Map<number, { oscNodes: OscillatorNode[]; amp: GainNode }>;
+type Oscillators = Map<
+  number,
+  {
+    oscNodes: OscillatorNode[];
+    amp: GainNode;
+    noise: AudioBufferSourceNode;
+    noiseGain: GainNode;
+  }
+>;
 
 export function* keyboard() {
   const ctx = new AudioContext();
@@ -14,13 +22,13 @@ export function* keyboard() {
 
   const oscillators: Oscillators = new Map();
 
-  const gainNode = ctx.createGain();
-  gainNode.connect(analyzerNode).connect(ctx.destination);
+  const masterGain = ctx.createGain();
+  masterGain.connect(analyzerNode).connect(ctx.destination);
 
-  yield all([stroke(ctx, gainNode, oscillators), release(ctx, oscillators)]);
+  yield all([stroke(ctx, masterGain, oscillators), release(ctx, oscillators)]);
 }
 
-function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
+function* stroke(ctx: AudioContext, masterGain: GainNode, oscMap: Oscillators) {
   while (true) {
     const {
       payload: { id, freq },
@@ -34,6 +42,7 @@ function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
       attack,
       decay,
       sustain,
+      noiseGain,
     } = (yield select()) as State;
 
     const oscs: OscillatorNode[] = [];
@@ -51,20 +60,40 @@ function* stroke(ctx: AudioContext, gainNode: GainNode, oscMap: Oscillators) {
         sustain * gain,
         ctx.currentTime + attack + decay
       );
-      oscNode.connect(amp).connect(gainNode);
+      oscNode.connect(amp);
       oscs.push(oscNode);
     }
 
-    oscMap.set(id, { oscNodes: oscs, amp });
+    const noise = ctx.createBufferSource();
+    const noiseGainNode = ctx.createGain();
+    noiseGainNode.gain.value = noiseGain;
+    const channels = 2;
+    const frameCount = ctx.sampleRate * 2.0;
+    const audioBuffer = ctx.createBuffer(channels, frameCount, ctx.sampleRate);
 
-    gainNode.gain.setValueAtTime(0, ctx.currentTime);
-    gainNode.gain.linearRampToValueAtTime(gain, ctx.currentTime + attack);
-    gainNode.gain.linearRampToValueAtTime(
+    for (let channel = 0; channel < channels; channel++) {
+      const nowBuffering = audioBuffer.getChannelData(channel);
+      for (let i = 0; i < frameCount; i++) {
+        nowBuffering[i] = Math.random() * 2 - 1;
+      }
+    }
+
+    noise.buffer = audioBuffer;
+    noise.connect(noiseGainNode).connect(amp);
+
+    amp.connect(masterGain);
+
+    oscMap.set(id, { oscNodes: oscs, amp, noise, noiseGain: noiseGainNode });
+
+    masterGain.gain.setValueAtTime(0, ctx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(gain, ctx.currentTime + attack);
+    masterGain.gain.linearRampToValueAtTime(
       sustain * gain,
       ctx.currentTime + attack + decay
     );
 
     for (const osc of oscs) osc.start();
+    noise.start();
   }
 }
 
@@ -81,9 +110,8 @@ function* release(ctx: AudioContext, oscMap: Oscillators) {
       const endTime = ctx.currentTime + release;
       oscs.amp.gain.linearRampToValueAtTime(0, endTime);
 
-      for (const oscNode of oscs.oscNodes) {
-        oscNode.stop(endTime);
-      }
+      for (const oscNode of oscs.oscNodes) oscNode.stop(endTime);
+      oscs.noise.stop(endTime);
     }
   }
 }
