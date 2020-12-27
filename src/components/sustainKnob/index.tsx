@@ -1,30 +1,22 @@
-import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { Knob } from '../knob';
+import { KnobV2 } from '../knobV2';
 
 import styles from './SustainKnob.css';
 
-export const SustainKnob: React.VFC = () => {
-  const dispatch = useDispatch();
+interface Props {
+  knobValue: number;
+  nextKnobValue: (_: number) => void;
+}
 
-  const [knobValue, setKnobValue] = useState(1);
-
-  const nextKnobValue = useCallback(
-    (val) => {
-      dispatch({
-        type: 'updateSustain',
-        payload: { volume: val },
-      });
-      setKnobValue(val);
-    },
-    [dispatch]
-  );
-
-  return (
-    <div>
-      <Knob initialKnobValue={1} nextKnobValue={nextKnobValue} step={0.01} />
-      <div className={styles.text}>SUSTAIN: {knobValue.toFixed(2)}</div>
-    </div>
-  );
-};
+export const SustainKnob: React.VFC<Props> = ({ knobValue, nextKnobValue }) => (
+  <div>
+    <KnobV2
+      knobValue={knobValue}
+      min={0}
+      max={1}
+      step={0.01}
+      dragSpeed={0.01}
+      nextKnobValue={nextKnobValue}
+    />
+    <div className={styles.text}>SUSTAIN: {knobValue.toFixed(2)}</div>
+  </div>
+);

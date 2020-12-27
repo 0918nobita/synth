@@ -5,5 +5,6 @@ export * from './gainKnob';
 export * from './keyboard';
 export * from './oscilloscope';
 export * from './releaseKnob';
+export * from './sustainKnob';
 export * from './unisonInput';
 export * from './waveformSelectbox';
