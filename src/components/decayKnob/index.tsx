@@ -1,4 +1,4 @@
-import { KnobV2 } from '../knobV2';
+import { Knob } from '../knob';
 
 import styles from './DecayKnob.css';
 
@@ -9,7 +9,7 @@ interface Props {
 
 export const DecayKnob: React.VFC<Props> = ({ knobValue, nextKnobValue }) => (
   <div>
-    <KnobV2
+    <Knob
       knobValue={knobValue}
       min={0}
       max={1}

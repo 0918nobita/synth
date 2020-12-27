@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react';
 import { useEffect, useState } from 'react';
 
-import { KnobV2 } from '../components/knobV2';
+import { Knob } from '../components/knob';
 
 interface Props {
   initialValue: number;
@@ -25,7 +25,7 @@ const KnobContainer: React.VFC<Props> = ({
   }, [initialValue]);
 
   return (
-    <KnobV2
+    <Knob
       knobValue={knobValue}
       min={min}
       max={max}

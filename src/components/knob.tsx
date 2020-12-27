@@ -29,7 +29,7 @@ const toConstMul = ({
   return Math.floor(val / multiplier) * multiplier;
 };
 
-export const KnobV2: React.VFC<Props> = ({
+export const Knob: React.VFC<Props> = ({
   knobValue,
   min,
   max,
