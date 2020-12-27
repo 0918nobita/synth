@@ -4,14 +4,16 @@
 
 WIP
 
-- Single oscillator (`sine`, `square`, `sawtooth`, `triangle`)
-- Gain control (`0x`-`1.00x`)
-- Unison control (`0`-`8`)
-- Detune control (`0hz`-`100hz`)
-- Attack control (`0s`-`1.00s`)
-- Decay control (`0s`-`1.00s`)
-- Sustain control (`0x`-`1.00x`)
-- Release control (`0s`-`1.00s`)
+- Master gain control (`0.00x`-`2.00x`)
+- Main oscillator (`sine`, `square`, `sawtooth`, `triangle`)
+- Unison control (`1`-`8`)
+- Detune control (`0.0hz`-`10.0hz`)
+- Noise oscillator
+- Amplifier
+  - Attack control (`0.00s`-`1.00s`)
+  - Decay control (`0.00s`-`1.00s`)
+  - Sustain control (`0.00x`-`1.00x`)
+  - Release control (`0.00s`-`1.00s`)
 - Virtual keyboard (`C3`-`B3`)
 - Controllable via MIDI keyboards
 
