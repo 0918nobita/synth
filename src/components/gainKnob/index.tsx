@@ -17,6 +17,6 @@ export const GainKnob: React.VFC<Props> = ({ knobValue, nextKnobValue }) => (
       dragSpeed={0.02}
       nextKnobValue={nextKnobValue}
     />
-    <div className={styles.text}>GAIN: {knobValue.toFixed(2)}</div>
+    <div className={styles.text}>MASTER: {knobValue.toFixed(2)}</div>
   </div>
 );
