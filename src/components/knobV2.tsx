@@ -39,6 +39,8 @@ export const KnobV2: React.VFC<Props> = ({
 }) => {
   const [dragging, setDragging] = useState(false);
 
+  const [focused, setFocused] = useState(false);
+
   const mouseDownHandler = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       if (dragging) return;
@@ -62,6 +64,39 @@ export const KnobV2: React.VFC<Props> = ({
     [dragging]
   );
 
+  const focusHandler = useCallback(() => {
+    setFocused(true);
+  }, [setFocused]);
+
+  const blurHandler = useCallback(() => {
+    setFocused(false);
+  }, [setFocused]);
+
+  const keydownHandler = useCallback(
+    (e: React.KeyboardEvent<SVGSVGElement>) => {
+      if (!focused) return;
+
+      if (e.key === 'Up' || e.key === 'ArrowUp') {
+        const draft = knobValue + step;
+        const val = limitToWithinRange({ val: draft, min, max });
+        nextKnobValue(val);
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      if (e.key === 'Down' || e.key === 'ArrowDown') {
+        const draft = knobValue - step;
+        const val = limitToWithinRange({ val: draft, min, max });
+        nextKnobValue(val);
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+    },
+    [focused, knobValue]
+  );
+
   return (
     <svg
       width={45}
@@ -69,11 +104,9 @@ export const KnobV2: React.VFC<Props> = ({
       viewBox={[-100, -100, 200, 200].join(', ')}
       tabIndex={0}
       onMouseDown={mouseDownHandler}
-      /*
       onFocus={focusHandler}
       onBlur={blurHandler}
       onKeyDown={keydownHandler}
-      */
     >
       <g
         style={{
