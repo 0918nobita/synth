@@ -1,3 +1,4 @@
+export * from './attackKnob';
 export * from './keyboard';
 export * from './oscilloscope';
 export * from './unisonInput';

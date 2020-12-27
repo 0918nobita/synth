@@ -4,7 +4,6 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import {
-  AttackKnob,
   DecayKnob,
   DetuneKnob,
   GainKnob,
@@ -13,6 +12,7 @@ import {
 } from './components';
 import {
   KeyboardContainer,
+  AttackKnobContainer,
   OscilloscopeContainer,
   UnisonInputContainer,
   WaveformSelectboxContainer,
@@ -46,7 +46,7 @@ ReactDOM.render(
       <DetuneKnob />
     </div>
     <div className={styles.knobs}>
-      <AttackKnob />
+      <AttackKnobContainer />
       <DecayKnob />
       <SustainKnob />
       <ReleaseKnob />

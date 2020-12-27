@@ -1,30 +1,22 @@
-import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { Knob } from '../knob';
+import { KnobV2 } from '../knobV2';
 
 import styles from './AttackKnob.css';
 
-export const AttackKnob: React.VFC = () => {
-  const dispatch = useDispatch();
+interface Props {
+  knobValue: number;
+  nextKnobValue: (_: number) => void;
+}
 
-  const [knobValue, setKnobValue] = useState(0);
-
-  const nextKnobValue = useCallback(
-    (val) => {
-      dispatch({
-        type: 'updateAttack',
-        payload: { period: val },
-      });
-      setKnobValue(val);
-    },
-    [dispatch]
-  );
-
-  return (
-    <div>
-      <Knob initialKnobValue={0} nextKnobValue={nextKnobValue} step={0.01} />
-      <div className={styles.text}>ATTACK: {knobValue.toFixed(2)}</div>
-    </div>
-  );
-};
+export const AttackKnob: React.VFC<Props> = ({ knobValue, nextKnobValue }) => (
+  <div>
+    <KnobV2
+      knobValue={knobValue}
+      min={0}
+      max={1}
+      step={0.01}
+      dragSpeed={0.01}
+      nextKnobValue={nextKnobValue}
+    />
+    <div className={styles.text}>ATTACK: {knobValue.toFixed(2)}</div>
+  </div>
+);
