@@ -26,6 +26,8 @@ export const reducer: Reducer<State, Actions> = (
       return { ...state, sustain: action.payload.volume };
     case 'updateRelease':
       return { ...state, release: action.payload.period };
+    case 'updateNoiseGain':
+      return { ...state, noiseGain: action.payload.rate };
     default:
       return state;
   }

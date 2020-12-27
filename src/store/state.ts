@@ -8,6 +8,7 @@ export interface State {
   decay: number;
   sustain: number;
   release: number;
+  noiseGain: number;
 }
 
 export const initialState: State = {
@@ -20,4 +21,5 @@ export const initialState: State = {
   decay: 0,
   sustain: 1,
   release: 0,
+  noiseGain: 0,
 };
