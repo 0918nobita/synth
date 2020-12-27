@@ -16,6 +16,7 @@ const limitToWithinRange = ({
   max: number;
 }) => (val < min ? min : val > max ? max : val);
 
+/** @deprecated use KnobV2 */
 export const Knob: React.VFC<Props> = ({
   initialKnobValue,
   nextKnobValue,
