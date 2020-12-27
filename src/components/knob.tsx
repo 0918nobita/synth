@@ -1,9 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-export interface Props {
-  initialKnobValue: number;
-  nextKnobValue: (val: number) => void;
+interface Props {
+  knobValue: number;
+  min: number;
+  max: number;
   step: number;
+  dragSpeed: number;
+  nextKnobValue: (_: number) => void;
 }
 
 const limitToWithinRange = ({
@@ -16,38 +19,45 @@ const limitToWithinRange = ({
   max: number;
 }) => (val < min ? min : val > max ? max : val);
 
+const toConstMul = ({
+  val,
+  multiplier,
+}: {
+  val: number;
+  multiplier: number;
+}) => {
+  return Math.floor(val / multiplier) * multiplier;
+};
+
 export const Knob: React.VFC<Props> = ({
-  initialKnobValue,
-  nextKnobValue,
+  knobValue,
+  min,
+  max,
   step,
-}: Props) => {
+  dragSpeed,
+  nextKnobValue,
+}) => {
   const [dragging, setDragging] = useState(false);
 
   const [focused, setFocused] = useState(false);
 
-  const [knobValue, setKnobValue] = useState(initialKnobValue);
-
   const mouseDownHandler = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       if (dragging) return;
-
       const yCoord = e.screenY;
       setDragging(true);
-
       const mouseMoveHandler = (e: MouseEvent) => {
         const yDiff = yCoord - e.screenY;
-        const draft = knobValue + yDiff / 100;
-        const val = limitToWithinRange({ val: draft, min: 0, max: 1 });
-        setKnobValue(val);
+        const draft =
+          knobValue + toConstMul({ val: yDiff * dragSpeed, multiplier: step });
+        const val = limitToWithinRange({ val: draft, min, max });
         nextKnobValue(val);
       };
-
       const mouseUpHandler = () => {
         setDragging(false);
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
       };
-
       document.addEventListener('mousemove', mouseMoveHandler);
       document.addEventListener('mouseup', mouseUpHandler);
     },
@@ -68,8 +78,7 @@ export const Knob: React.VFC<Props> = ({
 
       if (e.key === 'Up' || e.key === 'ArrowUp') {
         const draft = knobValue + step;
-        const val = limitToWithinRange({ val: draft, min: 0, max: 1 });
-        setKnobValue(val);
+        const val = limitToWithinRange({ val: draft, min, max });
         nextKnobValue(val);
         e.preventDefault();
         e.stopPropagation();
@@ -78,8 +87,7 @@ export const Knob: React.VFC<Props> = ({
 
       if (e.key === 'Down' || e.key === 'ArrowDown') {
         const draft = knobValue - step;
-        const val = limitToWithinRange({ val: draft, min: 0, max: 1 });
-        setKnobValue(val);
+        const val = limitToWithinRange({ val: draft, min, max });
         nextKnobValue(val);
         e.preventDefault();
         e.stopPropagation();
@@ -100,7 +108,11 @@ export const Knob: React.VFC<Props> = ({
       onBlur={blurHandler}
       onKeyDown={keydownHandler}
     >
-      <g style={{ transform: `rotate(${knobValue * 280 - 140}deg)` }}>
+      <g
+        style={{
+          transform: `rotate(${(knobValue / (max - min)) * 280 - 140}deg)`,
+        }}
+      >
         <circle
           cx={0}
           cy={0}

@@ -15,13 +15,14 @@ module.exports = {
         'plugin:import/typescript', // this line does the trick
         'plugin:react/recommended',
       ],
-      plugins: ['@typescript-eslint'],
+      plugins: ['@typescript-eslint', 'deprecation'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         sourceType: 'module',
         project: './tsconfig.json',
       },
       rules: {
+        'deprecation/deprecation': 'error',
         'import/order': 'error',
         'no-undef': 'off',
         'react/jsx-uses-react': 'off',

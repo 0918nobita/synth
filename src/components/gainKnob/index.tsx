@@ -1,27 +1,22 @@
-import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
 import { Knob } from '../knob';
 
 import styles from './GainKnob.css';
 
-export const GainKnob: React.VFC = () => {
-  const dispatch = useDispatch();
+interface Props {
+  knobValue: number;
+  nextKnobValue: (_: number) => void;
+}
 
-  const [knobValue, setKnobValue] = useState(1);
-
-  const nextKnobValue = useCallback(
-    (val) => {
-      dispatch({ type: 'updateGain', payload: { rate: val } });
-      setKnobValue(val);
-    },
-    [dispatch]
-  );
-
-  return (
-    <div>
-      <Knob initialKnobValue={1} nextKnobValue={nextKnobValue} step={0.01} />
-      <div className={styles.text}>GAIN: {knobValue.toFixed(2)}</div>
-    </div>
-  );
-};
+export const GainKnob: React.VFC<Props> = ({ knobValue, nextKnobValue }) => (
+  <div>
+    <Knob
+      knobValue={knobValue}
+      min={0}
+      max={2}
+      step={0.02}
+      dragSpeed={0.02}
+      nextKnobValue={nextKnobValue}
+    />
+    <div className={styles.text}>GAIN: {knobValue.toFixed(2)}</div>
+  </div>
+);
