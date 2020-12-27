@@ -8,8 +8,8 @@ export const reducer: Reducer<State, Actions> = (
   action: Actions
 ): State => {
   switch (action.type) {
-    case 'getAnalyzerNode':
-      return { ...state, analyzer: action.payload.analyzerNode };
+    case 'getAnalyserNode':
+      return { ...state, analyzer: action.payload.analyserNode };
     case 'updateGain':
       return { ...state, gain: action.payload.rate };
     case 'updateUnison':

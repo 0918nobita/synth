@@ -1,6 +1,6 @@
 import { all, put, select, take } from 'redux-saga/effects';
 
-import { ReleaseAction, State, StrokeAction, getAnalyzerNode } from '../store';
+import { ReleaseAction, State, StrokeAction, getAnalyserNode } from '../store';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
@@ -17,13 +17,13 @@ type Oscillators = Map<
 export function* keyboard() {
   const ctx = new AudioContext();
 
-  const analyzerNode = ctx.createAnalyser();
-  yield put(getAnalyzerNode({ analyzerNode }));
+  const analyserNode = ctx.createAnalyser();
+  yield put(getAnalyserNode({ analyserNode }));
 
   const oscillators: Oscillators = new Map();
 
   const masterGain = ctx.createGain();
-  masterGain.connect(analyzerNode).connect(ctx.destination);
+  masterGain.connect(analyserNode).connect(ctx.destination);
 
   yield all([stroke(ctx, masterGain, oscillators), release(ctx, oscillators)]);
 }

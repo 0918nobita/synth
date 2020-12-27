@@ -1,11 +1,11 @@
-import { AnalyzerActions } from './analyzer';
 import { KeyboardActions } from './keyboard';
 import { OscillatorActions } from './oscillator';
+import { OscilloscopeActions } from './oscilloscope';
 
-export * from './analyzer';
 export * from './keyboard';
 export * from './oscillator';
+export * from './oscilloscope';
 
-export type Actions = AnalyzerActions | KeyboardActions | OscillatorActions;
+export type Actions = KeyboardActions | OscillatorActions | OscilloscopeActions;
 
 export type ActionTypes = Actions['type'];
