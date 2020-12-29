@@ -5,7 +5,7 @@ import { DetuneKnob } from '../components';
 
 export const DetuneKnobContainer: React.VFC = () => {
   const dispatch = useDispatch();
-  const detune = useSelector((state) => state.old.detune);
+  const detune = useSelector((state) => state.oscillator.detune);
   const nextKnobValue = useCallback(
     (interval: number) => {
       dispatch({ type: 'updateDetune', payload: { interval } });

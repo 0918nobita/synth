@@ -5,7 +5,7 @@ import { ReleaseKnob } from '../components';
 
 export const ReleaseKnobContainer: React.VFC = () => {
   const dispatch = useDispatch();
-  const release = useSelector((state) => state.old.release);
+  const release = useSelector((state) => state.amplifier.release);
   const nextKnobValue = useCallback(
     (period: number) => {
       dispatch({ type: 'updateRelease', payload: { period } });

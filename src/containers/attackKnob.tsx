@@ -5,7 +5,7 @@ import { AttackKnob } from '../components';
 
 export const AttackKnobContainer: React.VFC = () => {
   const dispatch = useDispatch();
-  const attack = useSelector((state) => state.old.attack);
+  const attack = useSelector((state) => state.amplifier.attack);
   const nextKnobValue = useCallback(
     (period: number) => {
       dispatch({ type: 'updateAttack', payload: { period } });

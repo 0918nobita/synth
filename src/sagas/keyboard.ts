@@ -35,15 +35,9 @@ function* stroke(ctx: AudioContext, masterGain: GainNode, oscMap: Oscillators) {
     } = (yield take('stroke')) as StrokeAction;
 
     const {
-      waveform,
-      gain,
-      unison,
-      detune,
-      attack,
-      decay,
-      sustain,
-      noiseGain,
-    } = ((yield select()) as State).old;
+      oscillator: { waveform, gain, unison, detune, noiseGain },
+      amplifier: { attack, decay, sustain },
+    } = (yield select()) as State;
 
     const oscs: OscillatorNode[] = [];
     const median = Math.floor(unison / 2);
@@ -103,7 +97,9 @@ function* release(ctx: AudioContext, oscMap: Oscillators) {
       payload: { id },
     } = (yield take('release')) as ReleaseAction;
 
-    const { release } = ((yield select()) as State).old;
+    const {
+      amplifier: { release },
+    } = (yield select()) as State;
 
     const oscs = oscMap.get(id);
     if (oscs !== undefined) {

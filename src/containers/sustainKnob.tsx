@@ -5,7 +5,7 @@ import { SustainKnob } from '../components';
 
 export const SustainKnobContainer: React.VFC = () => {
   const dispatch = useDispatch();
-  const sustain = useSelector((state) => state.old.sustain);
+  const sustain = useSelector((state) => state.amplifier.sustain);
   const nextKnobValue = useCallback(
     (volume: number) => {
       dispatch({ type: 'updateSustain', payload: { volume } });
