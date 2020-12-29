@@ -6,7 +6,7 @@ import { UnisonInput } from '../components';
 export const UnisonInputContainer: React.VFC = () => {
   const dispatch = useDispatch();
 
-  const unison = useSelector((state) => state.unison);
+  const unison = useSelector((state) => state.old.unison);
 
   const changeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

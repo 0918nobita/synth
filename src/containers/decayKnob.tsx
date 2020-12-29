@@ -5,7 +5,7 @@ import { DecayKnob } from '../components';
 
 export const DecayKnobContainer: React.VFC = () => {
   const dispatch = useDispatch();
-  const decay = useSelector((state) => state.decay);
+  const decay = useSelector((state) => state.old.decay);
   const nextKnobValue = useCallback(
     (period: number) => {
       dispatch({ type: 'updateDecay', payload: { period } });

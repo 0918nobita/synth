@@ -43,7 +43,7 @@ function* stroke(ctx: AudioContext, masterGain: GainNode, oscMap: Oscillators) {
       decay,
       sustain,
       noiseGain,
-    } = (yield select()) as State;
+    } = ((yield select()) as State).old;
 
     const oscs: OscillatorNode[] = [];
     const median = Math.floor(unison / 2);
@@ -103,7 +103,7 @@ function* release(ctx: AudioContext, oscMap: Oscillators) {
       payload: { id },
     } = (yield take('release')) as ReleaseAction;
 
-    const { release } = (yield select()) as State;
+    const { release } = ((yield select()) as State).old;
 
     const oscs = oscMap.get(id);
     if (oscs !== undefined) {

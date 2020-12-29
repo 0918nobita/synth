@@ -1,4 +1,8 @@
 export interface State {
+  old: OldState;
+}
+
+export interface OldState {
   waveform: 'sine' | 'square' | 'sawtooth' | 'triangle';
   analyzer: AnalyserNode | null;
   gain: number;
@@ -11,7 +15,7 @@ export interface State {
   noiseGain: number;
 }
 
-export const initialState: State = {
+export const initialState: OldState = {
   waveform: 'triangle',
   analyzer: null,
   gain: 1,

@@ -17,7 +17,7 @@ import {
   WaveformSelectboxContainer,
 } from './containers';
 import { rootSaga } from './sagas';
-import { initialState, reducer } from './store';
+import { reducer } from './store';
 
 import styles from './global.css';
 
@@ -29,7 +29,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   reducer,
-  initialState,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 

@@ -19,7 +19,7 @@ export const WaveformSelectboxContainer: React.VFC = () => {
     [dispatch]
   );
 
-  const waveform = useSelector((state) => state.waveform);
+  const waveform = useSelector((state) => state.old.waveform);
 
   return (
     <WaveformSelectbox waveform={waveform} changeHandler={changeHandler} />

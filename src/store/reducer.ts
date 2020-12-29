@@ -1,12 +1,12 @@
-import { Reducer } from 'redux';
+import { Reducer, combineReducers } from 'redux';
 
 import { Actions } from './actions';
-import { State, initialState } from './state';
+import { OldState, State, initialState } from './state';
 
-export const reducer: Reducer<State, Actions> = (
-  state: State = initialState,
+export const oldReducer: Reducer<OldState, Actions> = (
+  state: OldState = initialState,
   action: Actions
-): State => {
+): OldState => {
   switch (action.type) {
     case 'getAnalyserNode':
       return { ...state, analyzer: action.payload.analyserNode };
@@ -32,3 +32,7 @@ export const reducer: Reducer<State, Actions> = (
       return state;
   }
 };
+
+export const reducer: Reducer<State, Actions> = combineReducers({
+  old: oldReducer,
+});
