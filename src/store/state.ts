@@ -1,10 +1,18 @@
 export interface State {
   old: OldState;
+  oscilloscope: OscilloscopeState;
 }
+
+export interface OscilloscopeState {
+  analyserNode: AnalyserNode | null;
+}
+
+export const initialOscilloscopeState: OscilloscopeState = {
+  analyserNode: null,
+};
 
 export interface OldState {
   waveform: 'sine' | 'square' | 'sawtooth' | 'triangle';
-  analyzer: AnalyserNode | null;
   gain: number;
   unison: number;
   detune: number;
@@ -15,9 +23,8 @@ export interface OldState {
   noiseGain: number;
 }
 
-export const initialState: OldState = {
+export const initialOldState: OldState = {
   waveform: 'triangle',
-  analyzer: null,
   gain: 1,
   unison: 1,
   detune: 0,

@@ -1,15 +1,34 @@
 import { Reducer, combineReducers } from 'redux';
 
-import { Actions } from './actions';
-import { OldState, State, initialState } from './state';
+import { Actions, OscilloscopeActions } from './actions';
+import {
+  OldState,
+  OscilloscopeState,
+  State,
+  initialOldState,
+  initialOscilloscopeState,
+} from './state';
+
+export const oscilloscopeReducer: Reducer<
+  OscilloscopeState,
+  OscilloscopeActions
+> = (
+  state: OscilloscopeState = initialOscilloscopeState,
+  action: OscilloscopeActions
+): OscilloscopeState => {
+  switch (action.type) {
+    case 'getAnalyserNode':
+      return { ...state, analyserNode: action.payload.analyserNode };
+    default:
+      return state;
+  }
+};
 
 export const oldReducer: Reducer<OldState, Actions> = (
-  state: OldState = initialState,
+  state: OldState = initialOldState,
   action: Actions
 ): OldState => {
   switch (action.type) {
-    case 'getAnalyserNode':
-      return { ...state, analyzer: action.payload.analyserNode };
     case 'updateGain':
       return { ...state, gain: action.payload.rate };
     case 'updateUnison':
@@ -35,4 +54,5 @@ export const oldReducer: Reducer<OldState, Actions> = (
 
 export const reducer: Reducer<State, Actions> = combineReducers({
   old: oldReducer,
+  oscilloscope: oscilloscopeReducer,
 });
