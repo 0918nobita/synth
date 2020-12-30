@@ -5,7 +5,7 @@ import { NoiseGainKnob } from '../components';
 
 export const NoiseGainKnobContainer: React.VFC = () => {
   const dispatch = useDispatch();
-  const noiseGain = useSelector((state) => state.noiseGain);
+  const noiseGain = useSelector((state) => state.oscillator.noiseGain);
   const nextKnobValue = useCallback(
     (rate: number) => {
       dispatch({ type: 'updateNoiseGain', payload: { rate } });

@@ -1,25 +1,9 @@
-export interface State {
-  waveform: 'sine' | 'square' | 'sawtooth' | 'triangle';
-  analyzer: AnalyserNode | null;
-  gain: number;
-  unison: number;
-  detune: number;
-  attack: number;
-  decay: number;
-  sustain: number;
-  release: number;
-  noiseGain: number;
-}
+import { AmplifierState } from './amplifier/state';
+import { OscillatorState } from './oscillator/state';
+import { OscilloscopeState } from './oscilloscope/state';
 
-export const initialState: State = {
-  waveform: 'triangle',
-  analyzer: null,
-  gain: 1,
-  unison: 1,
-  detune: 0,
-  attack: 0,
-  decay: 0,
-  sustain: 1,
-  release: 0,
-  noiseGain: 0,
-};
+export interface State {
+  oscillator: OscillatorState;
+  amplifier: AmplifierState;
+  oscilloscope: OscilloscopeState;
+}
